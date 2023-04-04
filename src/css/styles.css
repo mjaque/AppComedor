@@ -1,0 +1,114 @@
+#calendario {
+    max-width: 600px;
+    margin: auto;
+}
+
+#calendario * {
+    list-style-type: none;
+    box-sizing: border-box;
+}
+
+.mes {
+    padding: 10px;
+    width: 100%;
+    background: #1abc9c;
+    text-align: center;
+}
+
+.mes ul {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.mes ul li {
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+#findes {
+    margin: 0;
+    padding: 10px 0;
+    background-color: #ddd;
+}
+
+#findes li {
+    color: #666;
+    text-align: center;
+}
+
+#dias {
+    padding: 10px 0;
+    background: #eee;
+    margin: 0;
+}
+
+#dias li {
+    list-style-type: none;
+    text-align: center;
+    font-size: 16px;
+    color: #777;
+    padding: 15px;
+    margin: 3px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+#dias li.empty {
+    border: none;
+    cursor: default;
+}
+
+#dias li.active {
+    background: #1abc9c;
+    color: white !important;
+}
+
+#siguiente,
+#anterior {
+    cursor: pointer;
+}
+
+/* Add media queries for smaller screens */
+@media screen and (max-width: 720px) {
+    .findes li,
+    #dias li {
+        width: 13.1%;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .findes li,
+    #dias li {
+        width: 12.5%;
+    }
+    #dias li .active {
+        padding: 2px;
+    }
+}
+
+@media screen and (max-width: 290px) {
+    .findes li,
+    #dias li {
+        width: 12.2%;
+    }
+}
+
+#dias,
+#findes {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+@media all and (-ms-high-contrast: none) {
+    #dias {
+        display: -ms-grid;
+        -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        -ms-grid-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+}

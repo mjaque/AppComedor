@@ -58,12 +58,12 @@
     cursor: pointer;
 }
 
-#dias li.empty {
+#dias li.vacia {
     border: none;
     cursor: default;
 }
 
-#dias li.active {
+#dias li.activo {
     background: #1abc9c;
     color: white !important;
 }
@@ -71,31 +71,6 @@
 #siguiente,
 #anterior {
     cursor: pointer;
-}
-
-/* Add media queries for smaller screens */
-@media screen and (max-width: 720px) {
-    .findes li,
-    #dias li {
-        width: 13.1%;
-    }
-}
-
-@media screen and (max-width: 420px) {
-    .findes li,
-    #dias li {
-        width: 12.5%;
-    }
-    #dias li .active {
-        padding: 2px;
-    }
-}
-
-@media screen and (max-width: 290px) {
-    .findes li,
-    #dias li {
-        width: 12.2%;
-    }
 }
 
 #dias,

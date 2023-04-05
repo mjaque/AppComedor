@@ -1,8 +1,8 @@
+import {Vista} from './vista.js';
+
 /**
  * Contiene la vista del inicio de sesión de Google
  */
-import {Vista} from './vista.js';
-
 export class VistaLoginGoogle extends Vista {
 
     /**

@@ -1,9 +1,9 @@
-/**
- * Controlador principal de la aplicación
- */
 import {VistaLoginGoogle} from '../vistas/vistalogingoogle.js';
 import {VistaSecretaria} from '../vistas/vistasecretaria.js';
 
+/**
+ * Controlador principal de la aplicación
+ */
 class ControladorComedor {
     constructor() {
         window.onload = this.iniciar.bind(this);
@@ -21,6 +21,10 @@ class ControladorComedor {
         this.vistaSecretaria.mostrar(false);
     }
 
+    /**
+     * Obtiene los datos del usuario que inicia sesión.
+     * @param {Object} respuesta Token del inicio de sesión.
+     */
     loginGoogle(respuesta) {
         const respuestaPayload = this.decodificarRespuestaJwt(respuesta.credential);
         this.usuarioLogueado = respuestaPayload;

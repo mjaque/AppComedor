@@ -1,8 +1,8 @@
+import {Vista} from './vista.js';
+
 /**
  * Contiene la vista de los usuarios de secretaría.
  */
-import {Vista} from './vista.js';
-
 export class VistaSecretaria extends Vista {
 
     /**
@@ -26,9 +26,12 @@ export class VistaSecretaria extends Vista {
         ];
 
         this.calendarioBody = document.getElementById('dias');
-
+        this.calendarioAnio = document.getElementById('anio');
+        this.calendarioMes = document.getElementById('mes');
         this.calendarioBtnNext = document.getElementById('siguiente');
         this.calendarioBtnPrev = document.getElementById('anterior');
+        this.divInfo = document.getElementById('divInfo');
+        this.diaSeleccionado = null;
 
         this.calendarioBtnNext.onclick = this.calendarioSiguiente.bind(this);
         this.calendarioBtnPrev.onclick = this.calendarioAnterior.bind(this);
@@ -54,12 +57,23 @@ export class VistaSecretaria extends Vista {
      * @param {Event} e Evento.
      */
     mostrarFecha(e) {
+        // Desmarcar día que estaba previamente seleccionado
+        this.diaSeleccionado.classList.remove('activo');
+
+        // Marcar nuevo día seleccionado
+        this.diaSeleccionado = e;
+        this.diaSeleccionado.classList.add('activo');
+
         let anio = e.getAttribute('data-anio');
         let mes = e.getAttribute('data-mes');
         let dia = e.getAttribute('data-dia');
-        document.getElementById('select').innerHTML = dia + " " + this.listaMeses[mes] + " " + anio;
+        
+        this.divInfo.innerText = 'Información de la fecha: ' + dia + " " + this.listaMeses[mes] + " " + anio;
     }
 
+    /**
+     * Carga el calendario.
+     */
     cargarCalendario() {
         // Obtiene el dia de la semana para esta fecha.
         let primerDia = new Date(this.anio, this.mes).getDay();
@@ -79,7 +93,8 @@ export class VistaSecretaria extends Vista {
             let celdaTexto = document.createTextNode(dia);
 
             if (this.dia === dia && this.mes === this.hoy.getMonth() && this.anio == this.hoy.getFullYear()) {
-                celda.classList.add('active');
+                celda.classList.add('activo');
+                this.diaSeleccionado = celda;
             }
 
             // Añadiendo atributos
@@ -90,15 +105,13 @@ export class VistaSecretaria extends Vista {
             // Añadiendo el li al cuerpo del calendario
             celda.classList.add('singleDay');
             celda.appendChild(celdaTexto);
-            celda.onclick = (e) => {
-                this.mostrarFecha(e.target);
-            };
+            celda.onclick = (e) => this.mostrarFecha(e.target);
 
             this.calendarioBody.appendChild(celda);
         }
 
-        document.getElementById('mes').innerHTML = this.listaMeses[this.mes];
-        document.getElementById('anio').innerHTML = this.anio;
+        this.calendarioMes.innerHTML = this.listaMeses[this.mes];
+        this.calendarioAnio.innerHTML = this.anio;
     }
 
     /**
@@ -118,8 +131,8 @@ export class VistaSecretaria extends Vista {
             let celdaTexto = document.createTextNode('');
             celda.appendChild(celdaTexto);
 
-            // Añadir clase empty para eliminar los bordes
-            celda.classList.add('empty');
+            // Añadir clase 'vacia' para eliminar los bordes
+            celda.classList.add('vacia');
             this.calendarioBody.appendChild(celda);
         }
     }

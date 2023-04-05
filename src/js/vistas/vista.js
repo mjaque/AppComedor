@@ -2,7 +2,6 @@
  * Se utiliza como clase base para las demás vistas de la aplicación.
  */
 export class Vista {
-
     /**
      * Constructor de la clase.
      * @param {Object} controlador Controlador de la vista.

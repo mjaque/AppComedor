@@ -1,10 +1,10 @@
-import {VistaLoginGoogle} from '../vistas/vistalogingoogle.js';
-import {VistaSecretaria} from '../vistas/vistasecretaria.js';
+import {VistaLoginGoogle} from '../views/secretaria/vistalogingoogle.js';
+import {VistaSecretaria} from '../views/secretaria/vistasecretaria.js';
 
 /**
- * Controlador principal de la aplicación
+ * Controlador principal de secretaría
  */
-class ControladorComedor {
+class ControladorSecretaria {
     constructor() {
         window.onload = this.iniciar.bind(this);
     }
@@ -62,4 +62,4 @@ class ControladorComedor {
     }
 }
 
-new ControladorComedor();
+new ControladorSecretaria();

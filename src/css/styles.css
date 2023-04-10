@@ -87,3 +87,36 @@
         -ms-grid-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     }
 }
+
+form div.formItem {
+    margin: 10px auto;
+    text-align: center;
+}
+
+div.formItem input, 
+div.formItem select, 
+div.formItem textarea {
+    display: block;
+    margin: auto;
+    min-height: 20px;
+    min-width: 198px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: white;
+}
+
+div.formItem input[type="file"] {
+    border: 0;
+    border-radius: 0;
+    background-color: aliceblue;
+}
+
+form {
+    width: 398px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 1em;
+    padding: 10px;
+    background-color: aliceblue;
+}

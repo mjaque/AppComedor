@@ -9,40 +9,14 @@
         <title>Comedor EVG</title>
     </head>
     <body>
-        <div id="divLoginGoogle" class="container mx-auto my-2 bg-dark text-light p-2 rounded">
-            <h3 class="text-center">Iniciar sesión con Google</h3>
-            <div id="divGoogleLogin" class="mx-auto"></div>
-        </div>
-
-        <div id="divSecretaria" class="container mx-auto my-2 bg-dark text-light p-2 rounded">
-            <h3 class="text-center">Bienvenido/a</h3>
-            <div id="calendario">
-                <div class="mes">
-                  <ul>
-                    <li id="anterior">&#10094;</li>
-                    <li id="mes"></li>
-                    <li id="anio"></li>
-                    <li id="siguiente">&#10095;</li>
-                  </ul>
-                </div>
-          
-                <ul id="findes">
-                  <li>Sábado</li>
-                  <li>Domingo</li>
-                  <li>Lunes</li>
-                  <li>Martes</li>
-                  <li>Miércoles</li>
-                  <li>Jueves</li>
-                  <li>Viernes</li>
-                </ul>
-          
-                <ul id="dias"></ul>
-          
-                <div id="divInfo"></div>
+        <div id="divInicio" class="container mx-auto my-2 bg-dark text-light p-2 rounded w-25">
+            <h3 class="text-center">Bienvenido</h3>
+            <div class="mx-auto text-center">
+                <button type="button" class="btn btn-primary">Iniciar sesión</button>
+                <button type="button" class="btn btn-primary">Registrarse</button>
             </div>
         </div>
     </body>
 
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="js/controlador/app.js" type="module"></script>
+    <script src="js/controllers/controladorpadres.js" type="module"></script>
 </html>

@@ -1,4 +1,4 @@
-import {Vista} from './vista.js';
+import {Vista} from '../vista.js';
 
 /**
  * Contiene la vista de los usuarios de secretaría.

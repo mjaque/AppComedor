@@ -3,36 +3,38 @@ USE Comedor;
 
 CREATE TABLE Padres(
     id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    nombreApellidos VARCHAR(70) NOT NULL,
-    correo VARCHAR(70) NOT NULL,
-    contrasenia VARCHAR(30) NOT NULL,
+    nombre VARCHAR (80) NOT NULL,
+    apellidos VARCHAR(100) NOT NULL,
+    correo VARCHAR(90) NOT NULL,
+    contrasenia VARCHAR(90) NOT NULL,
     telefono CHAR(9) NOT NULL,
     dni CHAR(9) NOT NULL,
     iban CHAR(24) NOT NULL,
-    titular VARCHAR(70) NOT NULL,
+    titular VARCHAR(120) NOT NULL,
 
     CONSTRAINT PK_idPadre PRIMARY KEY(id),
     CONSTRAINT UQ_dniPadre UNIQUE(dni),
     CONSTRAINT UQ_ibanPadre UNIQUE(dni)
 );
 
-CREATE TABLE Dias(
-    idDia SMALLINT UNSIGNED NOT NULL,
-    dia DATE NOT NULL,
-
-    CONSTRAINT PK_idDia PRIMARY KEY (idDia)
-);
-
 CREATE TABLE Hijos(
     id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    nombreApellidos VARCHAR(70) NOT NULL,
+    nombre VARCHAR (80) NOT NULL,
+    apellidos VARCHAR(100) NOT NULL,
     curso VARCHAR(10) NOT NULL,
-    idDia SMALLINT UNSIGNED NOT NULL,
 
-    CONSTRAINT PK_idHijo PRIMARY KEY (id),
-    CONSTRAINT FK_idDia FOREIGN KEY (idDia) REFERENCES Dias(idDia)
+    CONSTRAINT PK_idHijo PRIMARY KEY (id)
+    
 );
 
+CREATE TABLE Dias(
+
+    idHijo SMALLINT UNSIGNED NOT NULL,
+    dia DATE NOT NULL,
+    
+    CONSTRAINT PK_DiasIdHijo PRIMARY KEY (idHijo, dia)
+    CONSTRAINT FK_idHijo FOREIGN KEY (idHijo) REFERENCES Hijos(id)
+);
 CREATE TABLE PadreHijos(
     idPadre SMALLINT UNSIGNED NOT NULL,
     idHijo SMALLINT UNSIGNED NOT NULL,
@@ -44,9 +46,10 @@ CREATE TABLE PadreHijos(
 
 CREATE TABLE Secretaria(
     id TINYINT UNSIGNED NOT NULL,
-    nombreApellidos VARCHAR(70) NOT NULL,
-    correo VARCHAR(70) NOT NULL,
-    contrasenia VARCHAR(70) NOT NULL
+    nombre VARCHAR (80) NOT NULL,
+    apellidos VARCHAR(100) NOT NULL,
+    correo VARCHAR(90) NOT NULL,
+    contrasenia VARCHAR(90) NOT NULL
 );
 
 CREATE TABLE festivosColegio(

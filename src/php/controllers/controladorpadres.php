@@ -23,13 +23,14 @@
          */
         public function altaPadre($array) 
         {
-            if (count($array) < 1)
+            if (count($array) < 1)  // Array vacío
             {
                 return 0;
             }
             else
             {
                 if (isset($array['nombre']) && !empty($array['nombre']) &&
+                isset($array['apellidos']) && !empty($array['apellidos']) &&
                 isset($array['correo']) && !empty($array['correo']) &&
                 isset($array['contrasenia']) && !empty($array['contrasenia']) &&
                 isset($array['telefono']) && !empty($array['telefono']) &&

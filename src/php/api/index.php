@@ -92,6 +92,11 @@
                 $controlador = new LoginGoogle();
                 break;
 
+            case 'persona':
+                require_once('./controllers/persona.php');
+                $controlador = new Persona();
+                break;
+
             case 'padres':
                 require_once('./controllers/padres.php');
                 $controlador = new Padres();
@@ -102,6 +107,16 @@
                 $controlador = new Hijos();
                 break;
             
+            case 'recuperar':
+                require_once('./controllers/recuperar.php');
+                $controlador = new Recuperar();
+                break;
+
+            case 'restaurar':
+                require_once('./controllers/restaurar.php');
+                $controlador = new Restaurar();
+                break;
+
             default:
                 header('HTTP/1.1 501 Not Implemented');
                 die();
@@ -136,6 +151,10 @@
     }
     catch (Throwable $excepcion) { // Throwable (interfaz) incluye Error y Exception
         switch ($excepcion->getCode()) {
+            case 2002:      // No hay conexión BBDD.
+                header('HTTP/1.1 408 Request Timeout');
+                break;
+
             case 23000:     // Integrity constraint violation: 1062
                 header('HTTP/1.1 500 Internal Server Error 1');
                 break;

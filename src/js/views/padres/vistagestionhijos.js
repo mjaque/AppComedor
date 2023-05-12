@@ -45,7 +45,6 @@ export class VistaGestionHijos extends Vista {
         this.tbody = this.div.getElementsByTagName('tbody')[0];
 
         this.mostrarOcultarCrud(true, false, false);
-        this.rellenarSelectCurso();
     }
 
     /**
@@ -63,6 +62,7 @@ export class VistaGestionHijos extends Vista {
     actualizarCampos(datos) {
         this.idUsuario = datos.id;
         this.controlador.dameHijos(this.idUsuario)
+        this.controlador.dameCursos()
     }
     
     cargarHijos(hijos) {
@@ -123,18 +123,18 @@ export class VistaGestionHijos extends Vista {
         }
     }
 
-    rellenarSelectCurso() {
-        const opciones =
-        ['1º Infantil', '2º Infantil', '1º Primaria', '2º Primaria', '3º Primaria', '4º Primaria', '5º Primaria', '6º Primaria',
-        '1 ESO', '2 ESO', '3 ESO', '4 ESO'];
+    /** Rellena el select de cursos de hijos */
+    rellenarSelectCurso(opciones) {
 
-        for (let i=0; i<opciones.length; i++) { 
-            let opc = opciones[i]; 
+        for (let opc of opciones){
+
             let opt = document.createElement("option");
-            opt.textContent = opc;
-            opt.value = opc;
-            this.selectAlta.appendChild(opt); 
+            opt.textContent = opc.nombre;
+            opt.value= opc.id;
+            
+            this.selectAlta.appendChild(opt);
         }
+
     }
 
     /**
@@ -142,13 +142,13 @@ export class VistaGestionHijos extends Vista {
      */
     validarFormulario() {
         this.formAlta.classList.add('was-validated');
-
+        
         if (this.inputsAlta[0].checkValidity() && this.inputsAlta[1].checkValidity()) {
             const datos = {
                 'id': this.idUsuario,
                 'nombre': this.inputsAlta[0].value,
-                'apellidos': this.inputsAlta[1].value
-               // 'curso': this.inputs[2].value
+                'apellidos': this.inputsAlta[1].value,
+                'idCurso': parseInt(this.selectAlta.value)
             };
 
             this.divCargandoAlta.style.display = 'block';

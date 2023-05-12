@@ -139,15 +139,24 @@ class ControladorPadres {
        })
     }
     dameHijos(id){
-        console.log(id)
         this.modelo.dameHijos(id)
             .then((hijos) => {
-                console.log(hijos)
-            this.vistaGestionHijos.cargarHijos(hijos)
+                this.vistaGestionHijos.cargarHijos(hijos)
             })
             .catch(e => {
              console.error(e)
        })
+    }
+    dameCursos(){
+        console.log("damecursos")
+        this.modelo.dameCursos()
+            .then((cursos) => {
+                console.log('cursos cargados')
+                this.vistaGestionHijos.rellenarSelectCurso(cursos)
+            })
+            .catch(e => {
+                console.error(e)
+            })
     }
 }
 

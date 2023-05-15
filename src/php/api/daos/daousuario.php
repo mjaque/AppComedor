@@ -278,10 +278,12 @@
          * @param int $id ID de la persona.
          * @return object|boolean Devuelve los datos de los hijos asociados al usuario o false si no existe el usuario.
          */
-        public static function dameHijos($id) {
-            $sql = 'SELECT id, nombre, apellidos FROM persona';
-            $sql .= ' INNER JOIN Hijo_Padre';
-            $sql .= ' ON persona.id = Hijo_Padre.idHijo';
+
+        public static function dameHijos($id){
+           //select persona.id, nombre, apellidos, idCurso from persona inner join Hijo_Padre on persona.id = hijo_padre.idHijo inner join hijo on persona.id=hijo.id where hijo_padre.idPadre = 1; 
+            $sql = 'SELECT Persona.id, nombre, apellidos, idCurso FROM persona';
+            $sql .= ' INNER JOIN Hijo_Padre ON persona.id = Hijo_Padre.idHijo';
+            $sql .= ' INNER JOIN Hijo on Persona.id = Hijo.id';
             $sql .= ' WHERE Hijo_Padre.idPadre = :id';
 
             $params = array('id' => $id);

@@ -40,6 +40,7 @@ label {
 
 div.formItem input[type="checkbox"] {
     min-width: 20px;
+    width: auto;
     display: inline-block;
     position: static;
 }

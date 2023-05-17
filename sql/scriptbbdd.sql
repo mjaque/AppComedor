@@ -11,6 +11,8 @@ CREATE TABLE Persona(
     iban CHAR(24) NULL,
     titular VARCHAR(120) NULL,
 
+    CONSTRAINT PK_idPersona PRIMARY KEY (id),
+    CONSTRAINT UQ_correoPersona UNIQUE (correo),
     CONSTRAINT UQ_dniPersona UNIQUE (dni),
     CONSTRAINT UQ_ibanPersona UNIQUE (iban)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -20,7 +22,6 @@ CREATE TABLE Curso(
     nombre varchar(50) NOT NULL,
 
     CONSTRAINT PK_idCurso PRIMARY KEY (id)
-     
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 CREATE TABLE Usuario(
@@ -36,15 +37,14 @@ CREATE TABLE Padre(
 
     CONSTRAINT PK_Padre_id PRIMARY KEY (id),
     CONSTRAINT FK_Padre_id FOREIGN KEY (id) REFERENCES Persona(id) ON DELETE CASCADE
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 CREATE TABLE Hijo(
     id SMALLINT UNSIGNED NOT NULL,
     idCurso TINYINT UNSIGNED NOT NULL,
+
     CONSTRAINT PK_Hijo_id PRIMARY KEY (id),
-    CONSTRAINT FK_Curso_id FOREIGN KEY (idCurso) REFERENCES Curso(id),
-    CONSTRAINT FK_Hijo_id FOREIGN KEY (id) REFERENCES Persona(id) ON DELETE CASCADE
+    CONSTRAINT FK_Curso_id FOREIGN KEY (idCurso) REFERENCES Curso(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 CREATE TABLE Dias(
@@ -52,7 +52,7 @@ CREATE TABLE Dias(
     idUsuario SMALLINT UNSIGNED NOT NULL,
     idPadre SMALLINT UNSIGNED NOT NULL,
     
-    CONSTRAINT PK_Dias_id PRIMARY KEY (idUsuario, idPadre),
+    CONSTRAINT PK_Dias_id PRIMARY KEY (dia, idUsuario, idPadre),
     CONSTRAINT FK_Dias_idUsuario FOREIGN KEY (idUsuario) REFERENCES Usuario(id) ON DELETE CASCADE,
     CONSTRAINT FK_Dias_idPadre FOREIGN KEY (idPadre) REFERENCES Padre(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -88,6 +88,7 @@ CREATE TABLE RecuperacionClaves(
     codigo VARCHAR(16) NOT NULL,
 
     CONSTRAINT PK_RecuperacionClaves_id PRIMARY KEY (id),
+    CONSTRAINT FK_RecuperacionClaves_id FOREIGN KEY (id) REFERENCES Persona(id),
     CONSTRAINT UQ_RecuperacionClaves_Codigo UNIQUE (codigo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -112,17 +113,3 @@ VALUES ('1º Infantil'),
         ('1º CFGM'),
         ('2º CFGM'),
         ('1º CFGS')
--- ////////////////////////////////
--- // INSERCIÓN MASIVA DE USUARIOS //
--- ////////////////////////////////
-INSERT INTO persona (id, nombre, apellidos, correo, contrasenia, telefono, dni, iban, titular) 
-VALUES (101, 'prueba2', 'prueba2', 'prueba2', '2', '2', '2', '2', '2');
-INSERT INTO persona (id, nombre, apellidos, correo, contrasenia, telefono, dni, iban, titular) 
-VALUES (102, 'prueba3', 'prueba3', 'prueba3', '3', '3', '3', '3', '3');
-INSERT INTO persona (id, nombre, apellidos, correo, contrasenia, telefono, dni, iban, titular) 
-VALUES (103, 'prueba4', 'prueba4', 'prueba4', '4', '4', '4', '4', '4');
-INSERT INTO persona (id, nombre, apellidos, correo, contrasenia, telefono, dni, iban, titular) 
-VALUES (104, 'prueba5', 'prueba5', 'prueba5', '5', '5', '5', '5', '5');
-
-INSERT INTO usuario (id)
-VALUES (101),(102),(103),(104)

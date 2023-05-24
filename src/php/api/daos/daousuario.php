@@ -14,17 +14,17 @@
          * @return object|boolean Devuelve los datos del usuario o false si no existe el usuario. 
          */
         public static function autenticarLogin($login) {
-            $sql = 'SELECT id, nombre, apellidos, correo, contrasenia, telefono, dni, iban, titular FROM persona';
-            $sql .= ' WHERE correo = :usuario AND contrasenia = :clave';
+            $sql = 'SELECT id, nombre, apellidos, correo, clave, telefono, dni, iban, titular FROM Persona';
+            $sql .= ' WHERE correo = :usuario AND clave = :clave';
 
             $params = array('usuario' => $login->usuario, 'clave' => $login->clave);
             $clave = $login->clave;
-            $sql = 'SELECT * FROM persona';
+            $sql = 'SELECT * FROM Persona';
             $sql .= ' WHERE correo = :usuario';
             $params = array('usuario' => $login->usuario);
             $resultado = BD::seleccionar($sql, $params);
 
-            if (password_verify($clave, $resultado[0]['contrasenia'])){
+            if (password_verify($clave, $resultado[0]['clave'])){
                 return DAOUsuario::crearUsuario($resultado);
             }
             else {
@@ -93,7 +93,7 @@
          * @return Usuario|boolean Devuelve los datos del usuario o false si no existe el usuario.
          */
         public static function autenticarEmail($email) {
-            $sql = 'SELECT id, nombre, apellidos, correo, contrasenia, telefono, dni, iban, titular FROM Persona';
+            $sql = 'SELECT id, nombre, apellidos, correo, clave, telefono, dni, iban, titular FROM Persona';
             $sql .= ' WHERE correo = :email';
 
             $params = array('email' => $email);
@@ -108,7 +108,7 @@
          * @return Usuario|boolean Devuelve los datos del usuario o false si no existe el usuario.
          */
         public static function existeCorreo($datos) {
-            $sql = 'SELECT id, nombre, apellidos, correo, contrasenia, telefono, dni, iban, titular FROM Persona';
+            $sql = 'SELECT id, nombre, apellidos, correo, clave, telefono, dni, iban, titular FROM Persona';
             $sql .= ' WHERE correo = :email';
 
             $params = array('email' => $datos->correo);
@@ -159,7 +159,7 @@
         
         /**
          * Obtiene fila de la tabla recuparacionClaves.
-         * @param object $datos Datos de la persona.
+         * @param object $datos Datos de la Persona.
          * @return object Objeto con la información.
          */
         public static function obtenerRecuperacionPorID($datos) {
@@ -186,30 +186,6 @@
         }
 
         /**
-         * Envía un correo con el enlace de recuperación de la contraseña.
-         * @param object $datos Datos del usuario.
-         * @param string $codigo Código único.
-         * @return boolean True si el correo fue mandado, False si no.
-         */
-        public static function enviarEmailRecuperacion($datos, $codigo) {
-            $para = $datos->correo;
-            $titulo = 'Crear nueva contraseña Comedor EVG';
-
-            $enlaceRestauracion = 'https://guadalupe.fundacionloyola.net/appcomedor/restaurar.html?codigo=' . $codigo;
-
-            $mensaje = $datos->nombre . ', pulse en el siguiente enlace para crear una ';
-            $mensaje .= ' <a href="' . $enlaceRestauracion . '">contraseña nueva</a>.';
-            $mensaje .= '<br/>Este enlace solo le permitirá cambiar la contraseña hasta en un máximo de 24 horas contando desde el momento de la solicitud. ';
-            $mensaje .= 'Si supera ese plazo deberá generar una nueva solicitud de cambio de contraseña.';
-
-            $headers = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-            $headers .= 'From: Comedor Escuela Virgen de Guadalupe <noreply@comedorevg.es>' . "\r\n";
-
-            return mail($para, $titulo, $mensaje, $headers);
-        }
-
-        /**
          * Genera código único de 16 caracteres.
          * @return string Código.
          */
@@ -218,16 +194,16 @@
         }
 
         /**
-         * Añade fila a tabla 'persona'
-         * @param object $datos Datos de la persona.
+         * Añade fila a tabla 'Persona'
+         * @param object $datos Datos de la Persona.
          * @return int ID de la fila insertada.
          */
         public static function altaPersona($datos) {
-            $sql = 'INSERT INTO Persona(nombre, apellidos, correo, contrasenia, telefono, dni, iban, titular)';
-            $sql .= ' VALUES(:nombre, :apellidos, :correo, :contrasenia, :telefono, :dni, :iban, :titular)';
+            $sql = 'INSERT INTO Persona(nombre, apellidos, correo, clave, telefono, dni, iban, titular)';
+            $sql .= ' VALUES(:nombre, :apellidos, :correo, :clave, :telefono, :dni, :iban, :titular)';
 
-            if ($datos->contrasenia != null) {
-                $clave = password_hash($datos->contrasenia, PASSWORD_DEFAULT, ['cost' => 15]);
+            if ($datos->clave != null) {
+                $clave = password_hash($datos->clave, PASSWORD_DEFAULT, ['cost' => 15]);
             }
             else {
                 $clave = NULL;
@@ -237,7 +213,7 @@
                 'nombre' => $datos->nombre,
                 'apellidos' => $datos->apellidos,
                 'correo' => $datos->correo,
-                'contrasenia' => $clave,
+                'clave' => $clave,
                 'telefono' => $datos->telefono,
                 'dni' => $datos->dni,
                 'iban' => $datos->iban,
@@ -248,7 +224,7 @@
         }
 
         /**
-         * Inserta fila en la tabla 'persona' solo de varios campos.
+         * Inserta fila en la tabla 'Persona' solo de varios campos.
          * @param object $datos Datos del usuario.
          * @return void
          */
@@ -265,8 +241,8 @@
         }
 
         /**
-         * Modifica fila de la tabla 'persona'.
-         * @param object $datos Datos de la persona.
+         * Modifica fila de la tabla 'Persona'.
+         * @param object $datos Datos de la Persona.
          * @return void
          */
         public static function modificarPersona($datos) {
@@ -284,16 +260,16 @@
         }
 
         /**
-         * Modifica campo contraseña de una fila de la tabla 'persona'.
-         * @param object $datos Datos de la persona.
+         * Modifica campo contraseña de una fila de la tabla 'Persona'.
+         * @param object $datos Datos de la Persona.
          * @return void
          */
         public static function modificarContrasenia($datos) {
             $sql = 'UPDATE Persona';
-            $sql .= ' SET contrasenia=:contrasenia WHERE id=:id';
+            $sql .= ' SET clave=:clave WHERE id=:id';
             $params = array(
                 'id' => $datos->id,
-                'contrasenia' => password_hash($datos->contrasenia, PASSWORD_DEFAULT, ['cost' => 15])
+                'clave' => password_hash($datos->clave, PASSWORD_DEFAULT, ['cost' => 15])
             );
 
             BD::actualizar($sql, $params);
@@ -301,7 +277,7 @@
 
         /**
          * Inserta fila en la tabla 'padre'.
-         * @param int $id ID de la persona.
+         * @param int $id ID de la Persona.
          * @return int ID de la inserción.
          */
         public static function altaPadre($id) {
@@ -314,7 +290,7 @@
         
         /**
          * Inserta fila en la tabla 'hijo'.
-         * @param int $id ID de la persona.
+         * @param int $id ID de la Persona.
          * @return int ID de la inserción.
          */
         public static function altaHijo($datos, $id) {
@@ -330,14 +306,14 @@
 
         /**
          * Muestra todos los hijos asociados a un padre.
-         * @param int $id ID de la persona.
+         * @param int $id ID de la Persona.
          * @return object|boolean Devuelve los datos de los hijos asociados al usuario o false si no existe el usuario.
          */
 
         public static function dameHijos($id){
 
-            $sql = 'SELECT Persona.id, nombre, apellidos, idCurso FROM persona';
-            $sql .= ' INNER JOIN Hijo_Padre ON persona.id = Hijo_Padre.idHijo';
+            $sql = 'SELECT Persona.id, nombre, apellidos, idCurso FROM Persona';
+            $sql .= ' INNER JOIN Hijo_Padre ON Persona.id = Hijo_Padre.idHijo';
             $sql .= ' INNER JOIN Hijo on Persona.id = Hijo.id';
             $sql .= ' WHERE Hijo_Padre.idPadre = :id';
 
@@ -352,7 +328,7 @@
          * @param int $id ID de la fila a eliminar.
          */
         public static function eliminaHijo($id){
-            $sql = 'DELETE FROM persona';
+            $sql = 'DELETE FROM Persona';
             $sql .= ' WHERE id = :id';
 
             $params = array('id' => $id);
@@ -360,8 +336,8 @@
         }
 
         /**
-         * Modifica fila de la tabla 'persona'
-         * @param object $datos Datos de la persona.
+         * Modifica fila de la tabla 'Persona'
+         * @param object $datos Datos de la Persona.
          * @return void
          */
         public static function modificarHijo($datos){
@@ -380,12 +356,11 @@
 
         /**
          * Inserta fila en la tabla 'padresHijos'.
-         * @param object $datos Datos de la persona.
-         * @param int $id ID de la persona.
+         * @param object $datos Datos de la Persona.
+         * @param int $id ID de la Persona.
          * @return int ID de la inserción.
          */
         public static function altaPadreHijo($datos, $id) {
-            $sql = 'INSERT INTO Hijo_Padre(idPadre, idHijo)';
             $sql = 'INSERT INTO Hijo_Padre(idPadre, idHijo)';
             $sql .= ' VALUES(:idPadre, :idHijo)';
             $params = array(
@@ -398,7 +373,7 @@
 
         /**
          * Inserta fila en la tabla 'usuario'.
-         * @param int $id ID de la persona.
+         * @param int $id ID de la Persona.
          * @return int ID de la inserción.
          */
         public static function altaUsuario($id) {

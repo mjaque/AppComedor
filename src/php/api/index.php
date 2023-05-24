@@ -106,11 +106,6 @@
                 require_once('./controllers/hijos.php');
                 $controlador = new Hijos();
                 break;
-            
-            case 'curso':
-                require_once('./controllers/curso.php');
-                $controlador = new Curso();
-                break;
                 
             case 'recuperar':
                 require_once('./controllers/recuperar.php');
@@ -130,6 +125,11 @@
             case 'dias':
                 require_once('./controllers/dias.php');
                 $controlador = new Dias();
+                break;
+
+            case 'festivos':
+                require_once('./controllers/festivos.php');
+                $controlador = new Festivos();
                 break;
 
             default:

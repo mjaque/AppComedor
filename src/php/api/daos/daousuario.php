@@ -330,18 +330,12 @@
             if (!BD::iniciarTransaccion())
                 throw new Exception('No es posible iniciar la transacción.');
 
-            $sql = 'INSERT INTO Persona(nombre, apellidos, correo, clave, telefono, dni, iban, titular)';
-            $sql .= ' VALUES(:nombre, :apellidos, :correo, :clave, :telefono, :dni, :iban, :titular)';
+            $sql = 'INSERT INTO Persona(nombre, apellidos)';
+            $sql .= ' VALUES(:nombre, :apellidos)';
 
             $params = array(
                 'nombre' => $datos->nombre,
-                'apellidos' => $datos->apellidos,
-                'correo' => $datos->correo,
-                'clave' => $clave,
-                'telefono' => $datos->telefono,
-                'dni' => $datos->dni,
-                'iban' => $datos->iban,
-                'titular' => $datos->titular
+                'apellidos' => $datos->apellidos
             );
             $id = BD::insertar($sql, $params);  
 

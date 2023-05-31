@@ -101,6 +101,38 @@ export class Modelo {
      * @returns {Promise} Devuelve la promesa asociada a la petición.
      */
     desmarcarDiaComedor(datos) {
-        return Rest.delete('dias', [datos.dia, datos.idUsuario, datos.idPadre]);
+        return Rest.delete('dias', [datos.dia, datos.idPersona, datos.idPadre]);
+    }
+
+    obtenerUsuariosApuntados(fecha) {
+        const queryParams = new Map();
+        queryParams.set('proceso', 'usuarios');
+        queryParams.set('fecha', fecha.getDate() + '-' + (fecha.getMonth()+1) + '-' + fecha.getFullYear());
+        return Rest.get('secretaria', [], queryParams);
+    }
+    //mensual
+    obtenerUsuariosApuntadosMensual(mes) {
+        const queryParams = new Map();
+        queryParams.set('procesom', 'usuarios');
+        queryParams.set('mes', mes);
+        return Rest.get('secretaria', [], queryParams);
+    }
+
+    obtenerIncidencias(fecha) {
+        const queryParams = new Map();
+        queryParams.set('proceso', 'incidencias');
+        queryParams.set('fecha', fecha.getDate() + '-' + (fecha.getMonth()+1) + '-' + fecha.getFullYear());
+        return Rest.get('secretaria', [], queryParams);
+    }
+    //Mensual
+    obtenerIncidenciasMensual(mes) {
+        const queryParams = new Map();
+        queryParams.set('procesom', 'incidencias');
+        queryParams.set('mes', mes);
+        return Rest.get('secretaria', [], queryParams);
+    }
+
+    insertarIncidencia(datos) {
+        return Rest.put('secretaria', [], datos, false);
     }
 }

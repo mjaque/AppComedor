@@ -1,7 +1,11 @@
 import { Rest } from "../services/rest.js";
 
 // Direcciones de correo posibles.
-const PILAR = 'dperezsache.guadalupe@alumnado.fundacionloyola.net';   // pvillalon@fundacionloyola.es
+
+//const PILAR = 'dperezsache.guadalupe@alumnado.fundacionloyola.net';   // pvillalon@fundacionloyola.es
+const PILAR = 'sergioriverasalgado.guadalupe@alumnado.fundacionloyola.net';   // pvillalon@fundacionloyola.es
+
+
 const ALUMNADO = '@alumnado.fundacionloyola.net';
 const PERSONAL = '@fundacionloyola.es';
 
@@ -28,7 +32,7 @@ class LoginGoogle {
         
         google.accounts.id.renderButton(
             document.getElementById('divGoogleLogin'),
-            { theme: 'outline', size: 'large', text: "signin_with", shape: 'rectangular' }
+            { theme: 'outline', size: 'medium', text: "signin_with", shape: 'rectangular' }
         );
     }
 

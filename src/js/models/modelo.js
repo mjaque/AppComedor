@@ -104,34 +104,59 @@ export class Modelo {
         return Rest.delete('dias', [datos.dia, datos.idPersona, datos.idPadre]);
     }
 
+    /**
+     * Llamada para obtener usuarios apuntados al comedor en la fecha.
+     * @param {String} fecha String de la fecha. 
+     * @returns {Promise} Devuelve la promesa asociada a la petición.
+     */
     obtenerUsuariosApuntados(fecha) {
         const queryParams = new Map();
         queryParams.set('proceso', 'usuarios');
         queryParams.set('fecha', fecha.getDate() + '-' + (fecha.getMonth()+1) + '-' + fecha.getFullYear());
         return Rest.get('secretaria', [], queryParams);
     }
-    //mensual
-    obtenerUsuariosApuntadosMensual(mes) {
-        const queryParams = new Map();
-        queryParams.set('procesom', 'usuarios');
-        queryParams.set('mes', mes);
-        return Rest.get('secretaria', [], queryParams);
-    }
 
+    /**
+     * Llamada para obtener las incidencias de los usuarios del comedor de una fecha.
+     * @param {String} fecha String de la fecha. 
+     * @returns {Promise} Devuelve la promesa asociada a la petición.
+     */
     obtenerIncidencias(fecha) {
         const queryParams = new Map();
         queryParams.set('proceso', 'incidencias');
         queryParams.set('fecha', fecha.getDate() + '-' + (fecha.getMonth()+1) + '-' + fecha.getFullYear());
         return Rest.get('secretaria', [], queryParams);
     }
-    //Mensual
-    obtenerIncidenciasMensual(mes) {
+
+    /**
+     * Llamada para obtener a los usuarios apuntados al comedor en un mes.
+     * @param {Number} mes Nº del mes.
+     * @returns {Promise} Devuelve la promesa asociada a la petición.
+     */
+    obtenerUsuariosApuntadosMensual(mes) {
         const queryParams = new Map();
-        queryParams.set('procesom', 'incidencias');
+        queryParams.set('proceso', 'usuariosMes');
         queryParams.set('mes', mes);
         return Rest.get('secretaria', [], queryParams);
     }
 
+    /**
+     * Llamada para obtener las incidencias de los usuarios del comedor de un mes.
+     * @param {Number} mes Nº del mes.
+     * @returns {Promise} Devuelve la promesa asociada a la petición.
+     */
+    obtenerIncidenciasMensual(mes) {
+        const queryParams = new Map();
+        queryParams.set('proceso', 'incidenciasMes');
+        queryParams.set('mes', mes);
+        return Rest.get('secretaria', [], queryParams);
+    }
+
+    /**
+     * Llamada para insertar o modificar incidencia.
+     * @param {String} fecha String de la fecha. 
+     * @returns {Promise} Devuelve la promesa asociada a la petición.
+     */
     insertarIncidencia(datos) {
         return Rest.put('secretaria', [], datos, false);
     }

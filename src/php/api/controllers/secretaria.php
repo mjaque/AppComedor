@@ -46,15 +46,12 @@
                     case 'incidencias':
                         $this->obtenerIncidencias($queryParams['fecha']);
                         break;
-                }
-            }
-            elseif (count($queryParams) && isset($queryParams['procesom'])){
-                switch ($queryParams['procesom']) {
-                    case 'usuarios':
+
+                    case 'usuariosMes':
                         $this->obtenerUsuariosMes($queryParams['mes']);
                         break;
 
-                    case 'incidencias':
+                    case 'incidenciasMes':
                         $this->obtenerIncidenciasMes($queryParams['mes']);
                         break;
                 }
@@ -67,10 +64,9 @@
         
         /**
          * Obtener usuarios mensuales.
-         * @param integer $mes Mes.
+         * @param string $mes Mes.
          */
         function obtenerUsuariosMes($mes) {
-
             $usuarios = DAOUsuario::obtenerUsuariosPorMes($mes);
 
             header('Content-type: application/json; charset=utf-8');
@@ -78,12 +74,12 @@
             echo json_encode($usuarios);
             die();
         }
-         /**
+
+        /**
          * Obtener incidencias mensuales.
-         * @param integer $mes Mes.
+         * @param string $mes Mes.
          */
         function obtenerIncidenciasMes($mes) {
-         
             $incidencias = DAOUsuario::obtenerIncidenciasPorMes($mes);
 
             header('Content-type: application/json; charset=utf-8');

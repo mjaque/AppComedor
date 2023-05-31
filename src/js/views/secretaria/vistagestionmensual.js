@@ -4,12 +4,12 @@ import {Vista} from '../vista.js';
  * Contiene la vista de gestión mensual de secretaría.
  */
 export class VistaGestionMensual extends Vista {
-        /**
+    /**
 	 *	Constructor de la clase.
 	 *	@param {ControladorSecretaria} controlador Controlador de la vista.
 	 *	@param {HTMLDivElement} div Div de HTML en el que se desplegará la vista.
 	 */
-     constructor(controlador, div) {
+    constructor(controlador, div) {
         super(controlador, div);
 
         this.usuarios = null;
@@ -24,12 +24,12 @@ export class VistaGestionMensual extends Vista {
 
         this.mesActual = this.obtenerMes();
        
-        
         this.btnMesAnterior.addEventListener('click', this.mesAnterior.bind(this));
         this.btnMesSiguiente.addEventListener('click', this.mesSiguiente.bind(this));
        
-        this.mes = document.getElementById('mes')
-     }
+        this.mes = document.getElementById('mes');
+    }
+
     /**
      * Refrescar/iniciar listado.
      */
@@ -39,27 +39,19 @@ export class VistaGestionMensual extends Vista {
     }
 
     /**
-     * 
+     * Devuelve el nombre del mes pasado.
      * @param {integer} mes Mes en forma numerica
      * @returns El mes en español correspondiente a la posicion
      */
     obtenerMesActualEnLetras(mes) {
         const meses = [
-          "Enero",
-          "Febrero",
-          "Marzo",
-          "Abril",
-          "Mayo",
-          "Junio",
-          "Julio",
-          "Agosto",
-          "Septiembre",
-          "Octubre",
-          "Noviembre",
-          "Diciembre"
+            "Enero", "Febrero", "Marzo",
+            "Abril", "Mayo", "Junio",
+            "Julio", "Agosto", "Septiembre",
+            "Octubre", "Noviembre", "Diciembre"
         ];
         
-        let mesIndex = mes - 1
+        let mesIndex = mes - 1;
         let mesEnLetras = meses[mesIndex];
         
         return mesEnLetras;
@@ -74,11 +66,12 @@ export class VistaGestionMensual extends Vista {
         if (this.usuarios) this.controlador.obtenerIncidenciasMensual(this.mesActual);
         else this.iniciarTabla();
     }
-      /**
+
+    /**
      * Obtener incidencias y empezar a generar la tabla.
      * @param {Array} incidencias Incidencias de los usuarios del mes actual.
      */
-      cargarListado(incidencias) {
+    cargarListado(incidencias) {
         this.incidencias = incidencias;
         this.iniciarTabla();
     }
@@ -91,8 +84,10 @@ export class VistaGestionMensual extends Vista {
         this.crearCuerpo();
     }
 
+    /**
+     * Crear cabecera tabla.
+     */
     crearEncabezado() {
-       
         this.thead.innerHTML = '';
 
         if (this.usuarios) {
@@ -105,7 +100,7 @@ export class VistaGestionMensual extends Vista {
             thTipo.textContent = 'Tipo de usuario';
 
             let thNumeroMenus = document.createElement('th');
-            thTipo.textContent = 'Número de Menús';
+            thNumeroMenus.textContent = 'Nº de menús';
 
             let thIncidencias = document.createElement('th');
             thIncidencias.textContent = 'Incidencias';
@@ -118,10 +113,11 @@ export class VistaGestionMensual extends Vista {
             this.thead.appendChild(trInfo);
         }
     }
-      /**
+
+    /**
      * Generar cuerpo de la tabla.
      */
-      crearCuerpo() {
+    crearCuerpo() {
         this.tbody.innerHTML = '';
 
         if (this.usuarios){
@@ -142,15 +138,14 @@ export class VistaGestionMensual extends Vista {
                 tdIncidencia.classList.add('small-cell');
     
                 let textarea = document.createElement('textarea');
-                textarea.maxLength = 500;
-               if (this.incidencias) {
+                textarea.disabled = true;
+
+                if (this.incidencias) {
                     for (const incidencia of this.incidencias) {
-                      
                         if (incidencia.idPersona == usuario.id && incidencia.incidencias)
                             textarea.value = incidencia.incidencias;
                     }
                 }
-    
                 tdIncidencia.appendChild(textarea);
     
                 tr.appendChild(tdNombre);
@@ -161,24 +156,19 @@ export class VistaGestionMensual extends Vista {
                 this.tbody.appendChild(tr);
             }
         }
-        else
-        {
+        else {
             let tr = document.createElement('tr');
-
             let tdSinUsuarios = document.createElement('td');
 
-            tdSinUsuarios.setAttribute('colspan','4')
-            tdSinUsuarios.textContent = "No existen registros"
+            tdSinUsuarios.setAttribute('colspan', '4')
+            tdSinUsuarios.textContent = "No existen registros";
 
-            tr.appendChild(tdSinUsuarios)
-
+            tr.appendChild(tdSinUsuarios);
             this.tbody.appendChild(tr)
-
         }
-      
     }
 
-     /**
+    /**
      * Devuelve el tipo de cuenta que tiene el usuario.
      * @param {String} correo Correo del usuario.
      * @returns {String} Tipo de cuenta.
@@ -197,24 +187,25 @@ export class VistaGestionMensual extends Vista {
         }
     }
 
+    /**
+     * Devuelve el mes en texto.
+     * @returns {String} String del mes.
+     */
     obtenerMes() {
         let fecha = new Date();
         let mes = fecha.getMonth() + 1; 
         return mes;
     }
 
-       /**
+    /**
      * Retroceder un mes.
      */
     mesAnterior() {
-        this.mesActual = this.mesActual - 1 
-        if (this.mesActual<1)
-        {
-          
+        this.mesActual = this.mesActual - 1 ;
+
+        if (this.mesActual < 1) {
             this.mesActual = 12
-          
         }
-        console.log(this.mesActual)
 
         this.inicializar();
     }
@@ -223,15 +214,15 @@ export class VistaGestionMensual extends Vista {
      * Avanzar un mes.
      */
     mesSiguiente() {
-        this.mesActual = this.mesActual + 1
-        if (this.mesActual>12)
-        {
-          
+        this.mesActual = this.mesActual + 1;
+
+        if (this.mesActual > 12) {
             this.mesActual = 1
-          
         }
+
         this.inicializar();
     }
+
     mostrar(ver) {
         super.mostrar(ver);
         if (ver) this.inicializar();    // Al volver a mostrar la vista, refrescar listado.

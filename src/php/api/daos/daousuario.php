@@ -52,7 +52,8 @@
 
             return $incidencias;
         }
-          /**
+
+        /**
          * Obtener las incidencias de un mes.
          * @param integer $mes Mes.
          * @return array Devuelve las incidencias. 
@@ -64,6 +65,7 @@
             $sql = 'SELECT idPersona, GROUP_CONCAT(incidencia SEPARATOR ", ") AS incidencias FROM Dias';
             $sql .= ' WHERE MONTH(dia)=:mes';
             $sql .= ' GROUP BY idPersona';
+            
             $params = array('mes' => $mes);
             $incidencias = BD::seleccionar($sql, $params);
 
@@ -72,7 +74,6 @@
 
             return $incidencias;
         }
-
 
         /**
          * Inserta/modifica incidencia de un día de un usuario en concreto.
@@ -151,11 +152,11 @@
                 
             return $usuarios;
         }
+
         /**
-         * Obtener los datos de las personas que tienen 'x' mes asignado.
+         * Obtener los datos de las personas que van al comedor en 'x' mes.
          * @param Integer $mes Mes.
          */
-
         public static function obtenerUsuariosPorMes($mes) {
             if (!BD::iniciarTransaccion())
                 throw new Exception('No es posible iniciar la transacción.');

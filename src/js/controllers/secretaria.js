@@ -53,11 +53,11 @@ class ControladorSecretaria {
          })
     }
     
-      /**
+    /**
      * Obtiene las incidencias de un mes.
-     * @param {Integer} mes String de la fecha.
+     * @param {Number} mes Mes.
      */
-      obtenerIncidenciasMensual(mes) {
+    obtenerIncidenciasMensual(mes) {
         this.modelo.obtenerIncidenciasMensual(mes)
          .then(incidencias => {
              this.vistaGestionMensual.cargarListado(incidencias);
@@ -97,6 +97,10 @@ class ControladorSecretaria {
          })
     }
 
+    /**
+     * Obtener usuarios de comedor de un mes.
+     * @param {Number} mes Mes.
+     */
     obtenerUsuariosMensual(mes) {
         this.modelo.obtenerUsuariosApuntadosMensual(mes)
         .then(usuarios => {

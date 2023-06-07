@@ -10,9 +10,12 @@ CREATE TABLE Persona(
     dni CHAR(9) NULL,
     iban CHAR(24) NULL,
     titular VARCHAR(120) NULL,
-
+	fechaFirmaMandato DATE NULL,
+	referenciaUnicaMandato VARCHAR(35) NULL,
+	
     CONSTRAINT PK_idPersona PRIMARY KEY (id),
     CONSTRAINT UQ_correoPersona UNIQUE (correo),
+	CONSTRAINT UQ_referenciaUnicaMandato UNIQUE(referenciaUnicaMandato),
     CONSTRAINT UQ_dniPersona UNIQUE (dni)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -40,10 +43,15 @@ CREATE TABLE Padre(
 
 CREATE TABLE Hijo(
     id SMALLINT UNSIGNED NOT NULL,
+    idPadreAlta SMALLINT UNSIGNED NOT NULL,
     idCurso TINYINT UNSIGNED NOT NULL,
+    pin CHAR(8) NOT NULL,
 
     CONSTRAINT PK_Hijo_id PRIMARY KEY (id),
-    CONSTRAINT FK_Curso_id FOREIGN KEY (idCurso) REFERENCES Curso(id) ON DELETE CASCADE
+    CONSTRAINT FK_Hijo_id FOREIGN KEY (id) REFERENCES Persona(id) ON DELETE CASCADE,
+    CONSTRAINT FK_Hijo_idPadreAlta FOREIGN KEY (idPadreAlta) REFERENCES Padre(id) ON DELETE CASCADE,
+    CONSTRAINT FK_Hijo_idCurso FOREIGN KEY (idCurso) REFERENCES Curso(id) ON DELETE CASCADE,
+    CONSTRAINT UQ_Hijo_pin UNIQUE (pin)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 CREATE TABLE Dias(

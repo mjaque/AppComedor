@@ -34,7 +34,7 @@
             }
 
             if (count($pathParams)) {
-                $resultado = DAOUsuario::borrarPadre($pathParams[0]);
+                $resultado = DAOUsuario::desactivaPadre($usuario->id);
                 sleep(1);
 
                 if ($resultado) header('HTTP/1.1 200 OK');

@@ -98,21 +98,13 @@
          * @param int $id ID de la persona padre.
          * @return boolean True si se hizo el proceso, false si no.
          */
-        public static function borrarPadre($id) {
-            if (!BD::iniciarTransaccion())
-                throw new Exception('No es posible iniciar la transacción.');
-
-            $hijos = DAOUsuario::dameHijos($id);
-            
-            if (count($hijos)) {
-                if (!BD::commit()) throw new Exception('No se pudo confirmar la transacción.');
-                else return false;
-            }
-            else {
-                DAOUsuario::eliminaPersona($id);
-                if (!BD::commit()) throw new Exception('No se pudo confirmar la transacción.');
-                else return true;
-            }
+        public static function desactivaPadre($idPersona) {
+        	$sql  = 'UPDATE Persona ';
+					$sql .= 'SET activo = 0 ';
+        	$sql .= 'WHERE id = ( ';
+					$sql .= 'SELECT id FROM Padre WHERE id = :idPersona) ';
+          $params = array('idPersona' => $idPersona);
+          BD::actualizar($sql, $params);
         }
 
         /**
@@ -528,7 +520,7 @@
             $sql = 'SELECT Persona.id, Hijo.idPadreAlta, Hijo.pin, Persona.nombre, Persona.apellidos, Hijo.idCurso FROM Persona';
             $sql .= ' INNER JOIN Hijo_Padre ON Persona.id = Hijo_Padre.idHijo';
             $sql .= ' INNER JOIN Hijo on Persona.id = Hijo.id';
-            $sql .= ' WHERE Hijo_Padre.idPadre = :id';
+            $sql .= ' WHERE Hijo_Padre.idPadre = :id AND Hijo.activo=1';
             $params = array('id' => $id);
 
             return BD::seleccionar($sql, $params);
@@ -540,6 +532,7 @@
          * @param int $idPadre ID del padre.
          */
         public static function eliminarRelacion($idHijo, $idPadre) {
+				die("TRON: No debería usarse (eliminarRelacion)");
             $sql = 'DELETE FROM Hijo_Padre';
             $sql .= ' WHERE idPadre=:idPadre AND idHijo=:idHijo';
             $params = array(
@@ -555,12 +548,42 @@
          * @param int $id ID de la fila a eliminar.
          */
         public static function eliminaPersona($id){
+				die("TRON: No debería usarse (eliminarPersona)");
             $sql = 'DELETE FROM Persona';
             $sql .= ' WHERE id = :id';
             $params = array('id' => $id);
 
             BD::borrar($sql, $params);
         }
+        
+				/**
+         * Marca el hijo como inactivo.
+         * @param int $id ID del hijo.
+         */
+        public static function eliminarHijo($idHijo, $idPadre){
+           if (!BD::iniciarTransaccion())
+           	throw new Exception('No es posible iniciar la transacción.');
+					
+					//Se marca el hijo como inactivo
+          $sql = 'UPDATE Hijo_Padre SET activo = 0 ';
+          $sql .= ' WHERE idPadre = :idPadre AND idHijo = :idHijo';
+          $params = array('idPadre' => $idPadre, 'idHijo' => $idHijo);
+          BD::actualizar($sql, $params);
+					
+					//Se borran los menús futuros
+          $sql  = 'DELETE FROM Dias ';
+          $sql .= ' WHERE idPadre = :idPadre AND idPersona = :idHijo ';
+					if (date('H') < 14)
+						$sql .= ' AND dia > CURDATE() ';
+					else
+						$sql .= ' AND dia > CURDATE() + 1 ';
+          $params = array('idPadre' => $idPadre, 'idHijo' => $idHijo);
+          BD::borrar($sql, $params);
+            
+					if (!BD::commit())
+          	throw new Exception('No se pudo confirmar la transacción.');
+        }
+
 
         /**
          * Modifica fila de la tabla 'Persona'

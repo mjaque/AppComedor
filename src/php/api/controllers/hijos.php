@@ -98,7 +98,8 @@
             if (count($pathParams)) {
                 switch ($pathParams[0]) {
                     case 'eliminarHijo':
-                        $this->eliminarHijo($pathParams[1]);
+												DAOUsuario::eliminarHijo($pathParams[1], $usuario->id);
+            						header('HTTP/1.1 200 OK');
                         break;
 
                     case 'eliminarRelacion':
@@ -123,15 +124,6 @@
             header('HTTP/1.1 200 OK');
         }
 
-        /**
-         * Eliminar hijo.
-         * @param int $id ID del hijo.
-         */
-        function eliminarHijo($id) {
-            DAOUsuario::eliminaPersona($id);
-            header('HTTP/1.1 200 OK');
-        }
-        
         /**
          * Modifica un hijo.
          * @param array $pathParams No utilizado.

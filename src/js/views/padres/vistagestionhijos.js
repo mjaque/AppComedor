@@ -411,7 +411,7 @@ export class VistaGestionHijos extends Vista {
      * @param {Number} id ID del hijo.
      */
     eliminar(id) {
-        if (confirm("¿Estas seguro de que deseas eliminar a tu hijo/a? Esta acción es irreversible.")) {
+        if (confirm("¿Está seguro de que desea eliminar a su hijo/a?\nSe eliminarán los menús futuros que tenga reservados.\nEsta acción es irreversible.")) {
             this.controlador.eliminarHijo(id);
         }
     }

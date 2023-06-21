@@ -12,9 +12,9 @@
         'clave_encriptacion' => '123456789',
 
         // Parámetros de base de datos
-        'bd' => 'comedor',
+        'bd' => 'appcomedor',
         'host_bd' => 'localhost',
-        'usuario_bd' => 'root',
-        'clave_bd' => ''
+        'usuario_bd' => 'appcomedor',
+        'clave_bd' => 'appcomedor'
     );
 ?>

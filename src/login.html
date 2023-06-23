@@ -4,6 +4,13 @@
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+				<!-- Evitamos que se cargen contenidos de otros dominios
+				ACTIVAR EN PRODUCCIÓN
+				<meta http-equiv='Content-Security-Policy' content="default-src 'self';" />
+				-->
+				<!-- Obligamos al navegador a acceder solo por HTTPS -->
+				<meta http-equiv='Strict-Transport-Security' content=': max-age=2592000' />
+
         <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="96x96" href="./img/favicon/favicon-96x96.png">
         <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon/favicon-16x16.png">

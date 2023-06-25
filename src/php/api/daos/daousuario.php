@@ -520,7 +520,7 @@
             $sql = 'SELECT Persona.id, Hijo.idPadreAlta, Hijo.pin, Persona.nombre, Persona.apellidos, Hijo.idCurso FROM Persona';
             $sql .= ' INNER JOIN Hijo_Padre ON Persona.id = Hijo_Padre.idHijo';
             $sql .= ' INNER JOIN Hijo on Persona.id = Hijo.id';
-            $sql .= ' WHERE Hijo_Padre.idPadre = :id AND Hijo.activo=1';
+            $sql .= ' WHERE Hijo_Padre.idPadre = :id AND Hijo_Padre.activo=1';
             $params = array('id' => $id);
 
             return BD::seleccionar($sql, $params);

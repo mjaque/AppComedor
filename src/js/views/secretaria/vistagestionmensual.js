@@ -101,6 +101,9 @@ export class VistaGestionMensual extends Vista {
 
             let thNumeroMenus = document.createElement('th');
             thNumeroMenus.textContent = 'Nº de menús';
+            
+						let thDias = document.createElement('th');
+            thDias.textContent = 'Días';
 
             let thIncidencias = document.createElement('th');
             thIncidencias.textContent = 'Incidencias';
@@ -108,6 +111,7 @@ export class VistaGestionMensual extends Vista {
             trInfo.appendChild(thUsuarios);
             trInfo.appendChild(thTipo);
             trInfo.appendChild(thNumeroMenus)
+            trInfo.appendChild(thDias)
             trInfo.appendChild(thIncidencias);
 
             this.thead.appendChild(trInfo);
@@ -139,6 +143,9 @@ export class VistaGestionMensual extends Vista {
                 let tdNumeroMenus = document.createElement('td');
                 tdNumeroMenus.textContent = usuario.numeroMenus
     
+                let tdDias = document.createElement('td');
+                tdDias.textContent = usuario.dias
+    
                 let tdIncidencia = document.createElement('td');
                 tdIncidencia.classList.add('small-cell');
     
@@ -157,6 +164,7 @@ export class VistaGestionMensual extends Vista {
                 tr.appendChild(tdNombre);
                 tr.appendChild(tdCurso);
                 tr.appendChild(tdNumeroMenus)
+                tr.appendChild(tdDias)
                 tr.appendChild(tdIncidencia);
     
                 this.tbody.appendChild(tr);

@@ -164,36 +164,16 @@
          * @param Integer $mes Mes.
          */
         public static function obtenerUsuariosPorMes($mes) {
-            if (!BD::iniciarTransaccion())
-                throw new Exception('No es posible iniciar la transacción.');
-
-            $sql = 'SELECT idPersona FROM Dias';
-            $sql .= ' WHERE MONTH(dia)=:mes';
+            $sql = 'SELECT Persona.id, Persona.nombre, Persona.apellidos, Persona.correo, COUNT(Dias.idPersona) AS "numeroMenus" ';
+						$sql .= ', GROUP_CONCAT(DAYOFMONTH(Dias.dia) ORDER BY Dias.dia ASC SEPARATOR ", ") AS dias '; 
+						$sql .= 'FROM Persona ';
+            $sql .= 'JOIN Dias ON Persona.id = Dias.idPersona ';
+            $sql .= 'WHERE MONTH(dia) = :mes ';
+            $sql .= 'GROUP BY Persona.id ';
+						$sql .= 'ORDER BY Persona.apellidos ';
             $params = array('mes' => $mes);
-
-            $resultados = BD::seleccionar($sql, $params);
-
-            if (!count($resultados)) {
-                if (!BD::commit()) throw new Exception('No se pudo confirmar la transacción.');
-                else return false;
-            }
-            //SELECT Persona.id, Persona.nombre, Persona.apellidos, Persona.correo, COUNT(Dias.idPersona) AS 'NumeroDias' FROM persona
-            //LEFT JOIN Dias ON Persona.id = Dias.idPersona WHERE Persona.id IN (2) AND MONTH(Dias.dia) = 6 GROUP BY Persona.id; 
-            $sql = 'SELECT Persona.id, Persona.nombre, Persona.apellidos, Persona.correo, COUNT(Dias.idPersona) AS "numeroMenus" FROM Persona';
-            $sql .= ' LEFT JOIN Dias ON Persona.id = Dias.idPersona';
-            $sql .= ' WHERE Persona.id IN (';
-
-            foreach ($resultados as $resultado)
-                $sql .= $resultado['idPersona'] . ',';
-            
-            $sql = substr_replace($sql, ")", -1);
-            $sql .= ' AND MONTH(Dias.dia) = :mes';
-            $sql .= ' GROUP BY Persona.id';
             $usuarios = BD::seleccionar($sql, $params);
             
-            if (!BD::commit())
-                throw new Exception('No se pudo confirmar la transacción.');
-                
             return $usuarios;
         }
 

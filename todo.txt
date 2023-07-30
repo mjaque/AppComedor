@@ -1,0 +1,22 @@
+- Pruebas:
+	- Padre:
+		- Registro.
+		- Login.
+		- Alta de Hijos.
+		- Reserva de Menús.
+		- Modificación de Menús.
+			- Limitaciones en la modificación de menús.
+		- Modificación de Registro.
+		- Modificación Hijos.
+		- Baja de Hijo.
+		- Baja de Padre.
+	- Admin:
+		- Consulta Diario.
+		- Consulta Mensual. (Ver Jira)
+		- Consulta por Padre. (Ver Jira)
+		- Q19.
+		- Consultar datos de Padres. (Ver Jira).
+		- Alta de Padres, hijos y menús. (Ver Jira)
+
+TODO:
+	- Alta Hijos: Borrar mensaje al pulsar en el menú.

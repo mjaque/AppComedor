@@ -23,6 +23,11 @@ class Registro {
         
         this.btnRegistrar.addEventListener('click', this.validarFormulario.bind(this));
         this.btnCancelar.addEventListener('click', this.volverAtras.bind(this));
+
+				this.iIban = document.querySelectorAll('input[name="iban"]')[0]
+				this.iIban.onpaste = ( evento => {
+					this.iIban.value = evento.clipboardData.getData('text').replaceAll(' ','')
+				})
     }
 
     /**

@@ -672,22 +672,23 @@
          * @return array Devuelve las incidencias. 
          */
         public static function obtenerListadoPadres($busqueda) {
-            if ($busqueda == "null") {
-                $sql = 'SELECT Persona.id, nombre, apellidos, correo, telefono, dni, iban, titular, fechaFirmaMandato, referenciaUnicaMandato FROM Persona';
-                $sql .= ' INNER JOIN Padre ON Persona.id = Padre.id';
-                $padres = BD::seleccionar($sql, null);
-
-            }
-            else {
-                $sql = 'SELECT Persona.id, nombre, apellidos, correo, telefono, dni, iban, titular, fechaFirmaMandato, referenciaUnicaMandato FROM Persona';
-                $sql .= ' INNER JOIN Padre ON Persona.id = Padre.id';
-                $sql .= ' WHERE UPPER(nombre) LIKE UPPER(:busqueda)';
-                $sql .= ' OR apellidos LIKE :busqueda';
-                $sql .= ' OR correo LIKE :busqueda';
+            $sql  = 'SELECT p1.id, p1.nombre, p1.apellidos, p1.correo, p1.telefono, p1.dni, p1.iban, p1.titular, p1.fechaFirmaMandato, p1.referenciaUnicaMandato, ';
+						$sql .= 'GROUP_CONCAT(CONCAT(p2.nombre, " ", p2.apellidos) SEPARATOR ", ") AS hijos '; 
+						$sql .= 'FROM Persona p1 ';
+            $sql .= 'INNER JOIN Padre ON p1.id = Padre.id ';
+						$sql .= 'JOIN Hijo_Padre ON Hijo_Padre.idPadre = Padre.id ';
+						$sql .= 'JOIN Persona p2 ON Hijo_Padre.idHijo = p2.id ';
+						$sql .= 'GROUP BY p1.id ';
+            if ($busqueda == "null") 
+                $params = null;
+         		else{
+                $sql .= 'WHERE UPPER(p1.nombre) LIKE UPPER(:busqueda) ';
+                $sql .= 'OR UPPER(p1.apellidos) LIKE UPPER(:busqueda) ';
+                $sql .= 'OR UPPER(p1.correo) LIKE UPPER(:busqueda) ';
                
                 $params = array('busqueda' => '%' . $busqueda . '%');
-                $padres = BD::seleccionar($sql, $params);
-            }
+						}
+            $padres = BD::seleccionar($sql, $params);
            
             return $padres;
         }

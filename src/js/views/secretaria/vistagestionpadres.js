@@ -94,6 +94,14 @@ export class VistaGestionPadres extends Vista {
             let thCorreo = document.createElement('th');
             thCorreo.textContent = 'Email'
             trInfo.appendChild(thCorreo)
+            
+						let thTelefono = document.createElement('th');
+            thTelefono.textContent = 'Teléfono'
+            trInfo.appendChild(thTelefono)
+
+						let thHijos = document.createElement('th');
+            thHijos.textContent = 'Hijos'
+            trInfo.appendChild(thHijos)
 
             this.thead.appendChild(trInfo);
         }
@@ -133,8 +141,16 @@ export class VistaGestionPadres extends Vista {
                     tdEmail.setAttribute('title', padre.correo)
                 }
 
+                let tdTelefono = document.createElement('td');
+                tdTelefono.textContent = padre.telefono
+
+                let tdHijos = document.createElement('td');
+                tdHijos.textContent = padre.hijos
+
                 tr.appendChild(tdNombre);
                 tr.appendChild(tdEmail);
+                tr.appendChild(tdTelefono);
+                tr.appendChild(tdHijos);
                 this.tbody.appendChild(tr);
             }
         }

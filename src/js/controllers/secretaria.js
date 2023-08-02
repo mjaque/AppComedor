@@ -3,6 +3,7 @@ import { VistaMenuSecretaria } from "../views/secretaria/vistamenusecretaria.js"
 import { VistaGestionDiaria } from "../views/secretaria/vistagestiondiaria.js";
 import { VistaGestionMensual } from "../views/secretaria/vistagestionmensual.js";
 import { VistaGestionPadres } from "../views/secretaria/vistagestionpadres.js";
+import { VistaQ19 } from "../views/secretaria/vistaq19.js";
 import { Rest } from "../services/rest.js";
 
 /**
@@ -37,6 +38,7 @@ class ControladorSecretaria {
         this.vistaGestionDiaria = new VistaGestionDiaria(this, document.getElementById('gestionDiaria'));
         this.vistaGestionMensual = new VistaGestionMensual(this, document.getElementById('gestionMensual'));
         this.vistaGestionPadres = new VistaGestionPadres(this, document.getElementById('gestionPadres'));
+        this.vistaQ19 = new VistaQ19(this, document.getElementById('divQ19'));
    
         this.verVistaGestionDiaria();
     }
@@ -128,31 +130,40 @@ class ControladorSecretaria {
         })
     }
 
+		ocultarVistas(){
+        this.vistaGestionDiaria.mostrar(false);
+        this.vistaGestionMensual.mostrar(false);
+        this.vistaGestionPadres.mostrar(false);
+        this.vistaQ19.mostrar(false);
+		}
+
     /**
      * Muestra la vista de gestión diaria.
      */
     verVistaGestionDiaria() {
+				this.ocultarVistas()
         this.vistaGestionDiaria.mostrar(true);
-        this.vistaGestionMensual.mostrar(false);
-        this.vistaGestionPadres.mostrar(false);
     }
 
     /**
      * Muestra la vista de gestión mensual.
      */
     verVistaGestionMensual() {
-        this.vistaGestionDiaria.mostrar(false);
+				this.ocultarVistas()
         this.vistaGestionMensual.mostrar(true);
-        this.vistaGestionPadres.mostrar(false);
     }
 
     /**
      * Muestra la vista de gestión mensual.
      */
     verVistaGestionPadres() {
-        this.vistaGestionDiaria.mostrar(false);
-        this.vistaGestionMensual.mostrar(false);
+				this.ocultarVistas()
         this.vistaGestionPadres.mostrar(true);
+    }
+    
+		verVistaQ19() {
+				this.ocultarVistas()
+        this.vistaQ19.mostrar(true);
     }
 
     /**
@@ -178,6 +189,18 @@ class ControladorSecretaria {
              console.error(e);
          })
     }
+
+		/**
+			Muestra la vista del Q19.
+			@param mes {Number} Número del mes (1 es enero).
+		**/
+		verQ19(mes){
+			this.modelo.obtenerQ19(mes)
+			.then ( q19 => {
+				this.verVistaQ19()
+				this.vistaQ19.iniciar(q19, mes)
+			} )
+		}
 }
 
 new ControladorSecretaria();

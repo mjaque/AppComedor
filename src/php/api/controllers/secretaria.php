@@ -78,6 +78,10 @@
                         $this->obtenerListadoPadres($queryParams['busqueda']);
                         break;
 
+                    case 'q19':
+                        $this->obtenerQ19($queryParams['mes']);
+                        break;
+
                     default:
                         header('HTTP/1.1 501 Not Implemented');
                         die();
@@ -158,5 +162,19 @@
             echo json_encode($padres);
             die();
         }
+
+        /**
+         * Obtener Q19 de un mes.
+         * @param string $mes Mes.
+         */
+        function obtenerQ19($mes) {
+            $q19 = DAOUsuario::obtenerQ19($mes);
+
+            header('Content-type: application/json; charset=utf-8');
+            header('HTTP/1.1 200 OK');
+            echo json_encode($q19);
+            die();
+        }
+
     }
 ?>

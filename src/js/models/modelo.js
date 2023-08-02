@@ -200,4 +200,17 @@ export class Modelo {
     borrarCuentaPadre(id) {
         return Rest.delete('padres', [id]);
     }
+    
+		/**
+     * Llamada para obtener los registros del Q19 de un mes.
+     * @param {Number} mes Nº del mes.
+     * @returns {Promise} Devuelve la promesa asociada a la petición.
+     */
+    obtenerQ19(mes) {
+        const queryParams = new Map();
+        queryParams.set('proceso', 'q19');
+        queryParams.set('mes', mes);
+        return Rest.get('secretaria', [], queryParams);
+    }
+
 }

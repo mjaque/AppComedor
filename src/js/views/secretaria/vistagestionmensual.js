@@ -17,6 +17,7 @@ export class VistaGestionMensual extends Vista {
 
         this.btnMesAnterior = this.div.getElementsByClassName('btn-prev')[0];
         this.btnMesSiguiente = this.div.getElementsByClassName('btn-next')[0];
+				this.btnQ19 = this.div.querySelectorAll('div>button')[2]
 
         this.tabla = this.div.querySelector('#tablaGestionMensual');
         this.thead = this.div.getElementsByTagName('thead')[0];
@@ -26,6 +27,7 @@ export class VistaGestionMensual extends Vista {
        
         this.btnMesAnterior.addEventListener('click', this.mesAnterior.bind(this));
         this.btnMesSiguiente.addEventListener('click', this.mesSiguiente.bind(this));
+				this.btnQ19.onclick = this.verQ19.bind(this)
        
         this.mes = document.getElementById('mes');
     }
@@ -241,4 +243,8 @@ export class VistaGestionMensual extends Vista {
         super.mostrar(ver);
         if (ver) this.inicializar();    // Al volver a mostrar la vista, refrescar listado.
     }
+
+		verQ19(){
+			this.controlador.verQ19(this.mesActual)
+		}
 }

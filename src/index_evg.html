@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="./css/styles.css"/>
         <link rel="stylesheet" href="./css/dashboardsecretaria.css"/>
         <link rel="stylesheet" href="./css/dashboardpadres.css"/>
+        <link rel="stylesheet" href="./css/datatable.css"/>
         <title>Comedor EVG</title>
     </head>
     <body>
@@ -70,6 +71,45 @@
                 <tbody></tbody>
             </table>
         </div>
+
+				<div id='divQ19'>
+					<h2>Datos de Cabecera</h2>
+					<div>
+						<div>
+							<label>Oficina BBVA receptora: <br /><input value=5566 /></label><br />
+							<label>Identificador del Acreedor: <br /><input value=ES83500G41908021 /></label><br />
+						</div>
+						<div>
+							<label>Fecha de Cobro Original: <br /><input type=date /></label><br />
+							<label>Nombre del Acreedor: <br /><input value='Escuela Virgen de Guadalupe' /></label><br />
+						</div>
+						<div>
+							<label>Cuenta del Acreedor: <br /><input value='ES7301825566740201521854' /></label><br />
+							<label>Divisa: <br /><input value='EUR' /></label><br />
+						</div>
+					</div>
+					<hr />
+					<h2>Recibos</h2>
+					<img src='./img/icons/add2.svg' title='nuevo registro' />
+					<img src='./img/icons/download.svg' title='descargar registros' />
+					<table class=dinamica>
+						<thead>
+							<tr>
+								<th data-type='text-short'>&nbsp;</th>
+								<th data-type='text-short' title='Nombre del Deudor'>TITULAR </th>
+								<th data-type='text-short' title='Cuenta del Deudor'>IBAN </th>
+								<th data-type='text-short' title='Referencia Única del Mandato'>REF.MANDATO </th>
+								<th data-type='text-short' title='Fecha de Firma del Mandato'>FEC.MANDATO </th>
+								<th data-type='text-short' title='Secuencia de Adeudo'>SEC.ADEUDO </th>
+								<th data-type='text-short' title='Referencia del Adeudo'>REF.ADEUDO </th>
+								<th data-type='numeric' title='Importe del Adeudo'>IMPORTE </th>
+								<th data-type='text-long' title='Concepto del Adeudo'>CONCEPTO </th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
 
         <div id="gestionPadres">
             <h1 class="text-center my-4">Gestión Padres</h1>

@@ -717,5 +717,22 @@
 
             BD::actualizar($sql, $params);
         }
+
+        /**
+         * Obtener datos para remesa Q19 de un mes.
+         * @param integer $mes Mes.
+         * @return array Devuelve los registros de la remesa. 
+         */
+        public static function obtenerQ19($mes) {
+            $sql  = 'SELECT Persona.titular, Persona.iban, Persona.referenciaUnicaMandato, Persona.fechaFirmaMandato, COUNT(Dias.dia) AS dias ';
+						$sql .= 'FROM Persona ';
+						$sql .= 'JOIN Dias ON Dias.idPadre = Persona.id ';
+            $sql .= 'WHERE MONTH(Dias.dia) = :mes ';
+            $sql .= 'GROUP BY Persona.id ';
+            $params = array('mes' => $mes);
+
+            return BD::seleccionar($sql, $params);
+        }
+
     }
 ?>

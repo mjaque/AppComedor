@@ -29,6 +29,14 @@
          * @param string $token Token de login de Google.
          */
         function post($pathParams, $queryParams, $token) {
+		global $config;
+		if ($config['test'] && $token === SECRETARIA) {
+			$payload = [];
+			$payload['email'] = $token;
+			$payload['given_name'] = '-';
+			$payload['family_name'] = '-';
+		}
+		else{
             $client = new Google_Client(['client_id' => self::$ID_CLIENTE]);
             $payload = $client->verifyIdToken($token);
 
@@ -37,6 +45,7 @@
                 header('HTTP/1.1 401 Unauthorized');
                 die();
             }
+				}
 
             // El usuario ha sido identificado por Google
             $usuario = DAOUsuario::autenticarEmail($payload['email']);

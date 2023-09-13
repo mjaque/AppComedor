@@ -19,4 +19,5 @@
 		- Alta de Padres, hijos y menús. (Ver Jira)
 
 TODO:
+	- Terminar Q19. Preparar para que se pueda copiar y pegar en la hoja de Excel del BBVA.
 	- Alta Hijos: Borrar mensaje al pulsar en el menú.

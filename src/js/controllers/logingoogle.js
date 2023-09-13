@@ -25,7 +25,17 @@ class LoginGoogle {
             document.getElementById('divGoogleLogin'),
             { theme: 'outline', size: 'medium', text: "signin_with", shape: 'rectangular' }
         );
+    
+		this.sTest = document.getElementsByTagName('select')[0]
+    if (this.sTest)
+      this.sTest.onchange = this.test.bind(this)
     }
+  
+		test () {
+    	const token = {}
+    	token.credential = this.sTest.value
+    	this.login(token)
+  	}
 
     /**
      * Recoge los datos y los envía al servidor para identificar al usuario.

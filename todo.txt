@@ -19,5 +19,8 @@
 		- Alta de Padres, hijos y menús. (Ver Jira)
 
 TODO:
+	- Bug, parece que en Gestión de Usuarios no se muestran Padres que no tengan Hijos.
 	- Terminar Q19. Preparar para que se pueda copiar y pegar en la hoja de Excel del BBVA.
+	- Meter más datos.
+	- Pruebas automáticas de Admin.
 	- Alta Hijos: Borrar mensaje al pulsar en el menú.

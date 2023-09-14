@@ -2,7 +2,7 @@
   "id": "f3eaaf55-31e5-44a5-88a7-4097fbf56235",
   "version": "2.0",
   "name": "appcomedor",
-  "url": "http://localhost/appcomedor/login_google.html",
+  "url": "http://localhost/appcomedor/",
   "tests": [{
     "id": "f2d924c8-eec9-4970-9b75-22470980a912",
     "name": "Registro_IBAN_ERR",
@@ -2551,6 +2551,182 @@
         ["xpath=//h3[contains(.,'Entrar con Google')]", "xpath:innerText"]
       ],
       "value": "Entrar con Google"
+    }]
+  }, {
+    "id": "72b0f306-68e1-4f0d-a3c0-ce5b37856458",
+    "name": "Alta Segundo Padre",
+    "commands": [{
+      "id": "d9efab1b-69df-405d-bbaf-b6736869077c",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost/appcomedor/login.html",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9b3ca0dd-d447-485b-b956-3bf30fc2e92b",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "956x720",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "19853880-13df-4ba1-b046-b56898c7d3fc",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Registrate",
+      "targets": [
+        ["linkText=Registrate", "linkText"],
+        ["css=.formItem:nth-child(7) a", "css:finder"],
+        ["xpath=//a[contains(text(),'Registrate')]", "xpath:link"],
+        ["xpath=//a[contains(@href, 'registro.html')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'Registrate')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cdc02f99-3a77-401b-8046-532eda33f614",
+      "comment": "",
+      "command": "click",
+      "target": "name=nombre",
+      "targets": [
+        ["name=nombre", "name"],
+        ["css=.formItem:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='nombre']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "421b7cf1-251e-4fa2-a67b-fe682a2d89a0",
+      "comment": "",
+      "command": "type",
+      "target": "name=nombre",
+      "targets": [
+        ["name=nombre", "name"],
+        ["css=.formItem:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='nombre']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Padre 2"
+    }, {
+      "id": "72da2888-d13a-4d37-8c66-c5a31f5aeda5",
+      "comment": "",
+      "command": "type",
+      "target": "name=apellidos",
+      "targets": [
+        ["name=apellidos", "name"],
+        ["css=.formItem:nth-child(2) .form-control", "css:finder"],
+        ["xpath=//input[@name='apellidos']", "xpath:attributes"],
+        ["xpath=//div[2]/label/input", "xpath:position"]
+      ],
+      "value": "Apellidos 2"
+    }, {
+      "id": "60a28060-8f3c-4aec-aef1-131651ec07b3",
+      "comment": "",
+      "command": "type",
+      "target": "name=correo",
+      "targets": [
+        ["name=correo", "name"],
+        ["css=.formItem:nth-child(3) .form-control", "css:finder"],
+        ["xpath=//input[@name='correo']", "xpath:attributes"],
+        ["xpath=//div[3]/label/input", "xpath:position"]
+      ],
+      "value": "padre2@ejemplo.com"
+    }, {
+      "id": "67742cfc-b8fa-4840-9740-7275e96cd1f1",
+      "comment": "",
+      "command": "type",
+      "target": "name=contrasenia",
+      "targets": [
+        ["name=contrasenia", "name"],
+        ["css=.formItem:nth-child(4) .form-control", "css:finder"],
+        ["xpath=//input[@name='contrasenia']", "xpath:attributes"],
+        ["xpath=//div[4]/label/input", "xpath:position"]
+      ],
+      "value": "12341234"
+    }, {
+      "id": "78eb1a52-793e-4ce0-99f4-3264f6e63650",
+      "comment": "",
+      "command": "type",
+      "target": "name=contrasenia2",
+      "targets": [
+        ["name=contrasenia2", "name"],
+        ["css=.formItem:nth-child(5) .form-control", "css:finder"],
+        ["xpath=//input[@name='contrasenia2']", "xpath:attributes"],
+        ["xpath=//div[5]/label/input", "xpath:position"]
+      ],
+      "value": "12341234"
+    }, {
+      "id": "12093da8-bba8-4ad0-87d6-9a49b19363f3",
+      "comment": "",
+      "command": "type",
+      "target": "name=telefono",
+      "targets": [
+        ["name=telefono", "name"],
+        ["css=.formItem:nth-child(6) .form-control", "css:finder"],
+        ["xpath=//input[@name='telefono']", "xpath:attributes"],
+        ["xpath=//div[6]/label/input", "xpath:position"]
+      ],
+      "value": "924123456"
+    }, {
+      "id": "ff1b8283-2429-461b-a99d-3fbb449d8369",
+      "comment": "",
+      "command": "type",
+      "target": "name=dni",
+      "targets": [
+        ["name=dni", "name"],
+        ["css=.formItem:nth-child(7) .form-control", "css:finder"],
+        ["xpath=//input[@name='dni']", "xpath:attributes"],
+        ["xpath=//div[7]/label/input", "xpath:position"]
+      ],
+      "value": "12345678E"
+    }, {
+      "id": "2298f0b1-e1d5-41ca-9250-67de7c338e4f",
+      "comment": "",
+      "command": "type",
+      "target": "name=titular",
+      "targets": [
+        ["name=titular", "name"],
+        ["css=.formItem:nth-child(9) .form-control", "css:finder"],
+        ["xpath=//input[@name='titular']", "xpath:attributes"],
+        ["xpath=//div[9]/label/input", "xpath:position"]
+      ],
+      "value": "Titular 2"
+    }, {
+      "id": "560de173-3322-4bcc-b222-1a08f35b3141",
+      "comment": "",
+      "command": "click",
+      "target": "name=politicaPrivacidad",
+      "targets": [
+        ["name=politicaPrivacidad", "name"],
+        ["css=.form-check-input", "css:finder"],
+        ["xpath=//input[@name='politicaPrivacidad']", "xpath:attributes"],
+        ["xpath=//div[10]/label/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "596a239f-bb7d-44c8-9d9f-9e0a463537c6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-success",
+      "targets": [
+        ["css=.btn-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Registrarse')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "afaa6aed-85be-4981-86d7-673055d402ed",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=#inicioPadres > .my-4",
+      "targets": [
+        ["css=#inicioPadres > .my-4", "css:finder"],
+        ["xpath=//div[@id='inicioPadres']/h1", "xpath:idRelative"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'Bienvenido al panel de padres/madres')]", "xpath:innerText"]
+      ],
+      "value": "Bienvenido al panel de padres/madres"
     }]
   }],
   "suites": [{

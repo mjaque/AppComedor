@@ -676,8 +676,8 @@
 						$sql .= 'GROUP_CONCAT(CONCAT(p2.nombre, " ", p2.apellidos) SEPARATOR ", ") AS hijos '; 
 						$sql .= 'FROM Persona p1 ';
             $sql .= 'INNER JOIN Padre ON p1.id = Padre.id ';
-						$sql .= 'JOIN Hijo_Padre ON Hijo_Padre.idPadre = Padre.id ';
-						$sql .= 'JOIN Persona p2 ON Hijo_Padre.idHijo = p2.id ';
+						$sql .= 'LEFT JOIN Hijo_Padre ON Hijo_Padre.idPadre = Padre.id ';
+						$sql .= 'LEFT JOIN Persona p2 ON Hijo_Padre.idHijo = p2.id ';
 						$sql .= 'GROUP BY p1.id ';
             if ($busqueda == "null") 
                 $params = null;

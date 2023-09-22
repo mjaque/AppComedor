@@ -1,3 +1,4 @@
 src/php/api/vendor/*
 .phpdoc/*
 *.swp
+datos/*

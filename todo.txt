@@ -1,4 +1,4 @@
-ma- Pruebas:
+- Pruebas:
 	- Padre:
 		- Registro.
 		- Login.
@@ -20,6 +20,10 @@ ma- Pruebas:
 
 TODO:
 	- No funciona el envío de emails ¿?
+	- Bug, parece que en Gestión de Usuarios no se muestran Padres que no tengan Hijos.
+	- Terminar Q19. Preparar para que se pueda copiar y pegar en la hoja de Excel del BBVA.
+	- Meter más datos.
+	- Pruebas automáticas de Admin.
 	- Alta Hijos: Borrar mensaje al pulsar en el menú.
 	- En Gestión de Menús, informar al usuario de los cambios:
 		Al activar/desactivar menús, mostrar al usuario el texto “Sus cambios se han guardado”.

@@ -1231,7 +1231,7 @@
       "id": "522f5c9e-213b-4856-8689-8c1e2db424e8",
       "comment": "",
       "command": "click",
-      "target": "id=fecha-3-2023-07-31",
+      "target": "xpath=//table[@id='menuHijos']/tbody/tr/td[2]/input",
       "targets": [
         ["id=fecha-3-2023-07-31", "id"],
         ["css=#fecha-3-2023-07-31", "css:finder"],
@@ -1244,7 +1244,7 @@
       "id": "9edb175a-796e-4b29-b6f1-13ef56920117",
       "comment": "",
       "command": "click",
-      "target": "id=fecha-4-2023-08-01",
+      "target": "xpath=//table[@id='menuHijos']/tbody/tr[2]/td[3]/input",
       "targets": [
         ["id=fecha-4-2023-08-01", "id"],
         ["css=#fecha-4-2023-08-01", "css:finder"],
@@ -1257,7 +1257,7 @@
       "id": "a8578039-fc72-463e-b624-26fca8d6026a",
       "comment": "",
       "command": "click",
-      "target": "id=fecha-3-2023-08-02",
+      "target": "xpath=//table[@id='menuHijos']/tbody/tr/td[4]/input",
       "targets": [
         ["id=fecha-3-2023-08-02", "id"],
         ["css=#fecha-3-2023-08-02", "css:finder"],
@@ -1270,7 +1270,7 @@
       "id": "48fbd359-eb6b-41db-a1a0-e1c54402fe1f",
       "comment": "",
       "command": "click",
-      "target": "id=fecha-4-2023-08-03",
+      "target": "xpath=//table[@id='menuHijos']/tbody/tr[2]/td[5]/input",
       "targets": [
         ["id=fecha-4-2023-08-03", "id"],
         ["css=#fecha-4-2023-08-03", "css:finder"],
@@ -1283,7 +1283,7 @@
       "id": "4ddd1b37-9d5e-4044-ae41-5ffd2389aa56",
       "comment": "",
       "command": "click",
-      "target": "id=fecha-3-2023-08-04",
+      "target": "xpath=//table[@id='menuHijos']/tbody/tr/td[6]/input",
       "targets": [
         ["id=fecha-3-2023-08-04", "id"],
         ["css=#fecha-3-2023-08-04", "css:finder"],
@@ -1443,7 +1443,7 @@
       "id": "b6af4709-8f50-4ab7-9288-72cf3470ded6",
       "comment": "",
       "command": "assertChecked",
-      "target": "id=fecha-3-2023-08-07",
+      "target": "xpath=//table[@id='menuHijos']/tbody/tr/td[2]/input",
       "targets": [
         ["id=fecha-3-2023-08-07", "id"],
         ["css=#fecha-3-2023-08-07", "css:finder"],
@@ -1456,7 +1456,7 @@
       "id": "74fd7b78-cc1e-4f93-b995-b93c364bad15",
       "comment": "",
       "command": "assertNotChecked",
-      "target": "id=fecha-4-2023-08-09",
+      "target": "xpath=//table[@id='menuHijos']/tbody/tr[2]/td[4]/input",
       "targets": [
         ["id=fecha-4-2023-08-09", "id"],
         ["css=#fecha-4-2023-08-09", "css:finder"],
@@ -1469,7 +1469,7 @@
       "id": "fe0946d9-cf43-4f47-ac7f-18a60f63b33b",
       "comment": "",
       "command": "assertChecked",
-      "target": "id=fecha-3-2023-08-09",
+      "target": "xpath=//table[@id='menuHijos']/tbody/tr/td[4]/input",
       "targets": [
         ["id=fecha-3-2023-08-09", "id"],
         ["css=#fecha-3-2023-08-09", "css:finder"],
@@ -1482,7 +1482,7 @@
       "id": "753d1884-1a55-48e9-92cf-f024ac464805",
       "comment": "",
       "command": "assertChecked",
-      "target": "id=fecha-3-2023-08-11",
+      "target": "xpath=//table[@id='menuHijos']/tbody/tr/td[6]/input",
       "targets": [
         ["id=fecha-3-2023-08-11", "id"],
         ["css=#fecha-3-2023-08-11", "css:finder"],
@@ -1508,7 +1508,7 @@
       "id": "fba01035-ed68-4adc-8445-ad4311b34ab5",
       "comment": "",
       "command": "assertChecked",
-      "target": "id=fecha-3-2023-07-31",
+      "target": "xpath=//table[@id='menuHijos']/tbody/tr/td[2]/input",
       "targets": [
         ["id=fecha-3-2023-07-31", "id"],
         ["css=#fecha-3-2023-07-31", "css:finder"],
@@ -1521,7 +1521,7 @@
       "id": "9f849c1f-efd6-4ce6-987b-e27a37185f0c",
       "comment": "",
       "command": "assertNotChecked",
-      "target": "id=fecha-3-2023-08-01",
+      "target": "xpath=//table[@id='menuHijos']/tbody/tr/td[3]/input",
       "targets": [
         ["id=fecha-3-2023-08-01", "id"],
         ["css=#fecha-3-2023-08-01", "css:finder"],
@@ -1534,7 +1534,7 @@
       "id": "7a403579-7cf0-4939-bc16-4f03e20eb924",
       "comment": "",
       "command": "assertChecked",
-      "target": "id=fecha-3-2023-08-02",
+      "target": "xpath=//table[@id='menuHijos']/tbody/tr/td[4]/input",
       "targets": [
         ["id=fecha-3-2023-08-02", "id"],
         ["css=#fecha-3-2023-08-02", "css:finder"],
@@ -1547,7 +1547,7 @@
       "id": "f4543360-7fb9-4053-b44b-b438ae647829",
       "comment": "",
       "command": "assertNotChecked",
-      "target": "id=fecha-3-2023-08-03",
+      "target": "xpath=//table[@id='menuHijos']/tbody/tr/td[5]/input",
       "targets": [
         ["id=fecha-3-2023-08-03", "id"],
         ["css=#fecha-3-2023-08-03", "css:finder"],
@@ -1560,7 +1560,7 @@
       "id": "8bae11cc-e24f-4721-b0a9-286996387496",
       "comment": "",
       "command": "assertNotChecked",
-      "target": "id=fecha-4-2023-08-04",
+      "target": "xpath=//table[@id='menuHijos']/tbody/tr[2]/td[6]/input",
       "targets": [
         ["id=fecha-4-2023-08-04", "id"],
         ["css=#fecha-4-2023-08-04", "css:finder"],
@@ -1573,7 +1573,7 @@
       "id": "ef9cecf5-0a88-4ef0-9336-262733906a48",
       "comment": "",
       "command": "assertChecked",
-      "target": "id=fecha-4-2023-08-03",
+      "target": "xpath=//table[@id='menuHijos']/tbody/tr[2]/td[5]/input",
       "targets": [
         ["id=fecha-4-2023-08-03", "id"],
         ["css=#fecha-4-2023-08-03", "css:finder"],
@@ -2410,6 +2410,34 @@
       "targets": [],
       "value": "1º ESO"
     }]
+  }, {
+    "id": "d190f630-1e0a-41c8-b395-7474726710b6",
+    "name": "Cargar BD Pruebas",
+    "commands": [{
+      "id": "452a6e84-dfc5-484c-9f22-13e3232e33f1",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost/appcomedor/php/api/index.php?cargarBDPruebas",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4996e179-868a-4887-8e5b-1caa1a07c9b1",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "745x663",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cbec09cc-7476-449b-8d2e-08b4ac15073f",
+      "comment": "",
+      "command": "waitForText",
+      "target": "css=body",
+      "targets": [
+        ["css=body", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": "Cargada BD Pruebas."
+    }]
   }],
   "suites": [{
     "id": "eaca2c8e-c9bc-4e14-8148-e448a8e0179d",
@@ -2417,7 +2445,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["f2d924c8-eec9-4970-9b75-22470980a912", "211a6e98-78aa-4517-b33d-3acc883c29cb", "c259e0e8-41e3-47a6-a3c0-d041e1fd569f", "e02478ec-2f45-4a8c-96f1-6071553b8159", "cb8a60c6-43c6-4e75-b4f6-3ebfa6b4afc8", "6171fab4-d3c0-4c46-a015-405818d65218", "21d7e37f-55e1-4ea1-a1b7-587c74f6ef3f", "39eadcd6-1709-427d-9f75-c42fa368bc2e"]
+    "tests": ["d190f630-1e0a-41c8-b395-7474726710b6", "f2d924c8-eec9-4970-9b75-22470980a912", "211a6e98-78aa-4517-b33d-3acc883c29cb", "c259e0e8-41e3-47a6-a3c0-d041e1fd569f", "e02478ec-2f45-4a8c-96f1-6071553b8159", "cb8a60c6-43c6-4e75-b4f6-3ebfa6b4afc8", "6171fab4-d3c0-4c46-a015-405818d65218", "21d7e37f-55e1-4ea1-a1b7-587c74f6ef3f", "39eadcd6-1709-427d-9f75-c42fa368bc2e"]
   }],
   "urls": ["http://localhost/", "http://localhost/appcomedor"],
   "plugins": []

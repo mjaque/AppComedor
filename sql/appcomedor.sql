@@ -75,6 +75,7 @@ CREATE TABLE IF NOT EXISTS Dias (
   KEY FK_Dias_idPadre (idPadre)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
+INSERT INTO Persona (nombre, apellidos, correo) VALUES('Pruebas', 'Secretaría', 'mjaque@fundacionloyola.es');
 -- --------------------------------------------------------
 
 --

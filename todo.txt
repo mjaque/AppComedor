@@ -1,4 +1,4 @@
-- Pruebas:
+ma- Pruebas:
 	- Padre:
 		- Registro.
 		- Login.
@@ -19,4 +19,25 @@
 		- Alta de Padres, hijos y menús. (Ver Jira)
 
 TODO:
+	- No funciona el envío de emails ¿?
 	- Alta Hijos: Borrar mensaje al pulsar en el menú.
+	- En Gestión de Menús, informar al usuario de los cambios:
+		Al activar/desactivar menús, mostrar al usuario el texto “Sus cambios se han guardado”.
+		Encima de la tabla, mostrar el texto, “Los cambios que realice se guardarán automáticamente”
+	- Falta gestión general de errores. 
+		Por ejemplo, si falla una llamada AJAX, no se muestra el error al usuario (en Admin. Comprobar en Usuario)
+	- Permitir a Admin dar de alta padres y menús (sin restricciones)
+	- Gestión de menús de Personal (Profesores, PAS y Alumnos)
+		Personal debe poder gestionar sus propios menús. De momento, solo está su login.
+		Tienen que darse de alta indicando el IBAN.
+		Secretaría tiene que poder completar sus datos.
+	- En la lista de padres, utilizar css overflow ellipsis para (...)
+	- Reforzar la seguridad del Alta de Padres para evitar que "cualquiera" se dé de alta.
+	- Mejorar la seguridad 
+		- Usar autenticación por cookie (HttpOnly y Secure)
+	- Limitar a 6 hijos por padre
+	
+	Peticiones de Pilar (Ernesto: "Lo vemos")
+	- Que se suba a él el resguardo de pago on line.El que no pague on line, tendrá que pasar por Secretaría físicamente a pagar y entregar la matrícula, no se le dejará mandar on line sin acreditar o adjuntar pago.
+    - Que el padre/madre reciba un justificante de matrícula pero no tenga que mandárnoslo.
+    - Que a nosotros nos salte otro pdf igual y podamos imprimir tb el recibo de pago.

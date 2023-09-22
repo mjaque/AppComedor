@@ -32,10 +32,20 @@
                 $locale = 'es_ES.UTF-8';
                 setlocale(LC_ALL, $locale);
                 putenv('LC_ALL=' . $locale);
+								$fichero = '../../../sql/appcomedor.sql';
+							if(!file_exists($fichero))
+								die('No existe fichero');
 
-                exec('mysql -u ' . BD::$usuario . ' --password=' . BD::$clave . ' ' . BD::$bd . ' < ../../sql/datos_prueba.sql', $salida);
-                die('Cargada BD Pruebas.');
+                exec('mysql -u ' . BD::$usuario . ' --password=' . BD::$clave . ' ' . BD::$bd . ' < '.$fichero, $salida);
+                die('Cargada BD Pruebas.<br/>');
             }
+						/*
+            if ($_SERVER['QUERY_STRING'] == 'simular_login') {
+        			require_once('./controllers/logingoogle.php');
+              $controlador = new LoginGoogle();
+              $controlador->simularLogin();
+						}
+						*/
         }
 
         // Procesamos la petición para identificar el recurso solicitado y sus parámetros

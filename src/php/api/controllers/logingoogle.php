@@ -77,6 +77,24 @@
             echo json_encode($usuario);
             die();
         }
+        function simularLogin() {
+				/*
+            // El usuario ha sido identificado por Google
+            $usuario = DAOUsuario::autenticarEmail(SECRETARIA);
+
+            // Completamos los datos del usuario
+            $usuario->nombre = 'Pruebas';
+            $usuario->apellidos = 'Secretaría';
+            $usuario->correo = 'mjaque@fundacionloyola.es';
+            $usuario->autorizacion = openssl_encrypt(json_encode($usuario), self::$algoritmo_encriptacion, self::$clave, 0, self::$iv);
+            $usuario->rol = 'S';  // Asignar rol dependiendo del tipo de usuario.
+
+            header('Content-type: application/json; charset=utf-8');
+            header('HTTP/1.1 200 OK');
+            echo json_encode($usuario);
+            die();
+						*/
+        }
 
         /**
          * Obtener el tipo de usuario que está iniciando sesión.

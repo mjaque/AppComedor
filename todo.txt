@@ -20,10 +20,20 @@
 
 TODO:
 	- No funciona el envío de emails ¿?
+	- En el registro de padres, si el email o el dni están duplicados, el mensaje dice "email repetido". Cambiar el mensaje "con ese email, dni o IBAN", o discriminar.
+	? Comprobar si hay precios distintos para hijos de profes. Se podría discriminar por @fundacionloyola.es
 	- Bug, parece que en Gestión de Usuarios no se muestran Padres que no tengan Hijos.
 	- Terminar Q19. Preparar para que se pueda copiar y pegar en la hoja de Excel del BBVA.
 	- Meter más datos.
 	- Pruebas automáticas de Admin.
+	+ Permitir ver la clave en el registro de padres.
+	- Al dar de alta el IBAN, pasar "es" automáticamente a mayúsculas.
+	- En la vista de inicio de padres, cambiar los iconos de semana y mes por los textos "Semana" y "Mes Completo"
+	+ En la vista inicial de padres añadir texto con el total de menús y su importe.
+	+ Cambiar la vista de inicio de Padres para que se vea el mes completo en lugar de solo una semana. (¡Cuidado con la versión móvil!)
+	+ En la vista de inicio de padres, incluir un enlace al menú mensual (pdf).
+
+
 	- Alta Hijos: Borrar mensaje al pulsar en el menú.
 	- En Gestión de Menús, informar al usuario de los cambios:
 		Al activar/desactivar menús, mostrar al usuario el texto “Sus cambios se han guardado”.

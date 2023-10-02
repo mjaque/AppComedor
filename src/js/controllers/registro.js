@@ -26,7 +26,7 @@ class Registro {
 
 				this.iIban = document.querySelectorAll('input[name="iban"]')[0]
 				this.iIban.onpaste = ( evento => {
-					this.iIban.value = evento.clipboardData.getData('text').replaceAll(' ','')
+					this.iIban.value = evento.clipboardData.getData('text').toUpperCase().replaceAll(' ','')
 				})
     }
 
@@ -49,6 +49,7 @@ class Registro {
             // Check de contraseñas
             if (this.inputs[3].value === this.inputs[4].value) {
                 // Check de IBAN
+								this.inputs[7].value = this.inputs[7].value.toUpperCase()
                 if (this.inputs[7].value.match(/^ES\d{2}[ ]\d{4}[ ]\d{4}[ ]\d{4}[ ]\d{4}[ ]\d{4}|ES\d{22}$/) &&
 									this.isValidIBANNumber(this.inputs[7].value)) {
                     this.divCargando.style.display = 'block';

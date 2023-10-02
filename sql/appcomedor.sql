@@ -75,8 +75,6 @@ CREATE TABLE IF NOT EXISTS Dias (
   KEY FK_Dias_idPadre (idPadre)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
-INSERT INTO Persona (nombre, apellidos, correo) VALUES('Pruebas', 'Secretaría', 'mjaque@fundacionloyola.es');
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla Festivo
@@ -159,6 +157,9 @@ CREATE TABLE IF NOT EXISTS Persona (
   UNIQUE KEY UQ_referenciaUnicaMandato (referenciaUnicaMandato),
   UNIQUE KEY UQ_dniPersona (dni)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+
+INSERT INTO Persona (nombre, apellidos, correo) VALUES('Pruebas', 'Secretaría', 'mjaque@fundacionloyola.es');
+-- --------------------------------------------------------
 
 -- --------------------------------------------------------
 

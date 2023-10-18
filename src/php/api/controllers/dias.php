@@ -1,5 +1,6 @@
 <?php
     require_once(dirname(__DIR__) . '/daos/daousuario.php');
+    require_once(dirname(__DIR__) . '/daos/daofestivos.php');
 
     /**
      * Controlador de hijos.
@@ -45,6 +46,19 @@
                 header('HTTP/1.1 401 Unauthorized');
                 die();
             }
+						//Es fin de semana
+						$diaSemana = date('w', strtotime($datos->dia));
+						if($diaSemana == 0 || $diaSemana == 6){
+							//Abortamos sin error
+            	header('HTTP/1.1 200 OK');
+            	die();
+						}
+						//¿Es festivo
+						if(DAOFestivos::esFestivo($datos->dia)){
+							//Abortamos sin error
+            	header('HTTP/1.1 200 OK');
+            	die();
+						}
 
             DAOUsuario::altaDia($datos);
             header('HTTP/1.1 200 OK');

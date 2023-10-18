@@ -19,7 +19,6 @@
 		- Alta de Padres, hijos y menús. (Ver Jira)
 
 TODO:
-	- BUG: Carlos tiene 31 menús reservados en octubre.
 	- BUG: Los menús de Carlos aparecen todos cargados a Pilar en el Q19.
 	- En la vista de padres, diferenciar los marcados por el usuario y los marcados por PIN (en anteriores).
 	? Comprobar si hay precios distintos para hijos de profes. Se podría discriminar por @fundacionloyola.es

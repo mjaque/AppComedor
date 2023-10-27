@@ -19,7 +19,9 @@
 		- Alta de Padres, hijos y menús. (Ver Jira)
 
 TODO:
-	- BUG: Los menús de Carlos aparecen todos cargados a Pilar en el Q19.
+	- Vista de Padre. Mostrar todo el mes en lugar de una semana.
+	- Si el padre es profesor, cobrar 6,50.
+	- Poner varios usuarios de secretaría.
 	- En la vista de padres, diferenciar los marcados por el usuario y los marcados por PIN (en anteriores).
 	? Comprobar si hay precios distintos para hijos de profes. Se podría discriminar por @fundacionloyola.es
 	- Bug, parece que en Gestión de Usuarios no se muestran Padres que no tengan Hijos.

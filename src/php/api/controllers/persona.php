@@ -14,8 +14,19 @@
          */
         function post($pathParams, $queryParams, $datos, $usuario) {
             // Insertar en tabla de personas.
-            $id = DAOUsuario::altaPersona($datos);
-            sleep(1);
+						try{
+            	$id = DAOUsuario::altaPersona($datos);
+						}
+						catch(Exception $e) {
+							//echo 'Message: ' .$e->getMessage();
+							if (strpos($e->getMessage(), 'UQ_correoPersona'))
+            		header('HTTP/1.1 400 Bad Request - Email repetido');
+							else if (strpos($e->getMessage(), 'UQ_dniPersona'))
+            		header('HTTP/1.1 400 Bad Request - DNI repetido');
+							else
+            		header('HTTP/1.1 400 Bad Request');
+							die();
+						}	
 
             header('Content-type: application/json; charset=utf-8');
             header('HTTP/1.1 200 OK');

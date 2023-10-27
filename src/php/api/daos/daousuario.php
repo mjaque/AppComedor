@@ -638,6 +638,9 @@
                 $usuario->iban = $resultSet[0]['iban'];
                 $usuario->titular = $resultSet[0]['titular'];
                 $usuario->rol = null;
+								$usuario->clave = false;
+								if ($resultSet[0]['clave'])
+									$usuario->clave = true;
             }
             else {
                 $usuario = false;

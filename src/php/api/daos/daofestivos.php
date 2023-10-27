@@ -39,5 +39,20 @@
                 return false;
             }
         }
+
+				/**
+					Comprueba si una fecha en formato ISO es día festivo.
+					@param string $fecha Fecha en formato ISO YYYY-MM-DD
+					@return boolean. True si es festivo.
+				**/
+        public static function esFestivo($fecha) {
+            $sql = 'SELECT COUNT(*) AS dias FROM Festivo';
+            $sql .= ' WHERE diaFestivo = :fecha';
+            $params = array(
+                'fecha' => $fecha
+            );
+            
+            $resultado = BD::seleccionar($sql, $params);
+            return $resultado[0]['dias'];
+			}
     }
-?> 

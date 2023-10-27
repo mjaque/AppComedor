@@ -19,8 +19,10 @@
 		- Alta de Padres, hijos y menús. (Ver Jira)
 
 TODO:
-	- No funciona el envío de emails ¿?
-	- En el registro de padres, si el email o el dni están duplicados, el mensaje dice "email repetido". Cambiar el mensaje "con ese email, dni o IBAN", o discriminar.
+	- Vista de Padre. Mostrar todo el mes en lugar de una semana.
+	- Si el padre es profesor, cobrar 6,50.
+	- Poner varios usuarios de secretaría.
+	- En la vista de padres, diferenciar los marcados por el usuario y los marcados por PIN (en anteriores).
 	? Comprobar si hay precios distintos para hijos de profes. Se podría discriminar por @fundacionloyola.es
 	- Bug, parece que en Gestión de Usuarios no se muestran Padres que no tengan Hijos.
 	- Terminar Q19. Preparar para que se pueda copiar y pegar en la hoja de Excel del BBVA.

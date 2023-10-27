@@ -4,7 +4,7 @@
     require_once(dirname(__DIR__) . '/models/usuario.php');
 
     // Constantes de tipos de usuario
-    define('SECRETARIA', 'mjaque@fundacionloyola.es'); // pvillalon@fundacionloyola.es
+    //define('SECRETARIA', 'mjaque@fundacionloyola.es'); // pvillalon@fundacionloyola.es
     define('ALUMNADO', '@alumnado.fundacionloyola.net');
     define('PERSONAL', '@fundacionloyola.es');
 
@@ -17,6 +17,7 @@
         public static $clave = null;
         public static $algoritmo_encriptacion = null;
         public static $iv = 'Sd5LzPt2fxW+rQfF';
+				private static $secretaria = ['mjaque@fundacionloyola.es'];
 
         //Id de cliente de Google.
         private static $ID_CLIENTE = '829640902680-48t2uq3us7qit3ehbusp2t6fldfeh6r6.apps.googleusercontent.com';
@@ -30,7 +31,7 @@
          */
         function post($pathParams, $queryParams, $token) {
 		global $config;
-		if ($config['test'] && $token === SECRETARIA) {
+		if ($config['test'] && in_array($token, self::$secretaria)) {
 			$payload = [];
 			$payload['email'] = $token;
 			$payload['given_name'] = '-';
@@ -111,7 +112,7 @@
          * @return string|null Tipo de usuario o null si no se pudo identificar.
          */
         function obtenerTipo($correo) {
-            if ($correo === constant('SECRETARIA')) {
+            if (in_array($correo, self::$secretaria)) {
                 return 'secretaria';
             }
             else if (str_contains($correo, constant('ALUMNADO'))) {

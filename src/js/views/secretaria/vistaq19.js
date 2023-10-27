@@ -6,7 +6,7 @@ import { Datatable } from '../components/datatable.js'
  */
 export class VistaQ19 extends Vista {
 	#mes = null
-	#PRECIO_MENU = 3
+	#PRECIO_MENU = [11, 6,5]
 	#MESES = ['', 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
 
     /**
@@ -116,7 +116,10 @@ export class VistaQ19 extends Vista {
 
 		td = document.createElement('td')
 		tr.append(td)
-		recibo.importe = recibo.dias * this.#PRECIO_MENU
+		let precio = this.#PRECIO_MENU[0]
+		if (/@fundacionloyola.es$/.test(recibo.correo))
+			precio = this.#PRECIO_MENU[1]
+		recibo.importe = recibo.dias * precio
 		td.setAttribute('data-campo', 'importe')
 		this.datatable.activarCelda(td, null, this.actualizarCampo.bind(this, td), null)
 

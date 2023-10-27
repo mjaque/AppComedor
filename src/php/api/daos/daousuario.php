@@ -727,7 +727,7 @@
          * @return array Devuelve los registros de la remesa. 
          */
         public static function obtenerQ19($mes) {
-            $sql  = 'SELECT Persona.titular, Persona.iban, Persona.referenciaUnicaMandato, Persona.fechaFirmaMandato, COUNT(Dias.dia) AS dias ';
+            $sql  = 'SELECT Persona.titular, Persona.correo, Persona.iban, Persona.referenciaUnicaMandato, Persona.fechaFirmaMandato, COUNT(Dias.dia) AS dias ';
 						$sql .= 'FROM Persona ';
 						$sql .= 'JOIN Dias ON Dias.idPadre = Persona.id ';
             $sql .= 'WHERE MONTH(Dias.dia) = :mes ';

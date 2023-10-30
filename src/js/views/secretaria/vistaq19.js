@@ -6,7 +6,7 @@ import { Datatable } from '../components/datatable.js'
  */
 export class VistaQ19 extends Vista {
 	#mes = null
-	#PRECIO_MENU = [11, 6,5]
+	#PRECIO_MENU = [7.5, 6.5]
 	#MESES = ['', 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
 
     /**

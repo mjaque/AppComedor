@@ -183,6 +183,10 @@ export class VistaInicioPadres extends Vista {
                 // 3- Desactivar el poder interactuar con días ya pasados.
                 if (!checkbox.disabled && Date.parse(fechaActual) > Date.parse(fechaDia)) {
                     checkbox.disabled = true;
+                }                
+                // 4- Si es el lunes, no se puede activar si estamos a finde
+                if (i=== 0 && this.esFinde()){
+                    checkbox.disabled = true;
                 }
 
                 // Marcar los días que se hayan seleccionado previamente.
@@ -311,6 +315,15 @@ export class VistaInicioPadres extends Vista {
                 fechaDia.getMonth() === fechaHoy.getMonth() &&
                 fechaDia.getDate() === fechaHoy.getDate() + 1 &&
                 fechaHoy.getHours() >= 14;
+    }
+    
+    /**
+     * Indica si hoy es viernes y son más de las 14:00 o sábado o domingo.
+     * @returns {Boolean}.
+     */
+    esFinde() {
+    	const hoy = new Date()
+    	return ((hoy.getDay() === 6 && hoy.getHours() >= 14) || hoy.getDay() === 7 || hoy.getDay() === 0) 
     }
 
     /**

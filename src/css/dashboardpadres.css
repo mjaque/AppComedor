@@ -189,6 +189,10 @@ p.avisoPIN{
 div#divErrorBorrado {
     display: none;
 }
+#pConfirmacion{
+	text-align: center;
+	color: darkgreen;
+}
 
 @media (max-width:576px) {
     div#divEliminarPadre {

@@ -35,6 +35,7 @@ export class VistaInicioPadres extends Vista {
         this.tabla = this.div.querySelector('#menuHijos');
         this.thead = this.div.getElementsByTagName('thead')[0];
         this.tbody = this.div.getElementsByTagName('tbody')[0];
+        this.pConfirmacion = document.getElementById('pConfirmacion')
     }
 
     /**
@@ -435,10 +436,10 @@ export class VistaInicioPadres extends Vista {
         };
 
         if (marcado) {
-            this.controlador.marcarDiaComedor(datos);
+            this.controlador.marcarDiaComedor(datos, this.pConfirmacion);
         }
         else {
-            this.controlador.desmarcarDiaComedor(datos);
+            this.controlador.desmarcarDiaComedor(datos, this.pConfirmacion);
         }
     }
 

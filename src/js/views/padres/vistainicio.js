@@ -303,16 +303,16 @@ export class VistaInicioPadres extends Vista {
     }
 
     /**
-     * Comprobar si puede o no interactuar con el día de mañana si hoy son las 14 o más.
+     * Comprobar si puede o no interactuar con el día de mañana si hoy son las 14 o más o si hoy es festivo.
      * @param {Date} fechaHoy Fecha actual.
      * @param {Date} fechaDia Fecha mañana.
      * @returns {Boolean} True si mañana debería ser bloqueado, false si no.
      */
     bloquearDiaTomorrow(fechaHoy, fechaDia) {
-        return fechaDia.getFullYear() === fechaHoy.getFullYear() &&
+        return ((fechaDia.getFullYear() === fechaHoy.getFullYear() &&
                 fechaDia.getMonth() === fechaHoy.getMonth() &&
                 fechaDia.getDate() === fechaHoy.getDate() + 1 &&
-                fechaHoy.getHours() >= 14;
+                fechaHoy.getHours() >= 14) || this.esDiaFestivo(this.formatearStringFecha(fechaHoy)));
     }
 
     /**

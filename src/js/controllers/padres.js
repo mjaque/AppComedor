@@ -182,9 +182,11 @@ class ControladorPadres {
     /**
      * Marca día del comedor.
      * @param {Object} datos Datos del día a marcar.
+       @param {HTMLElement} pConfirmacion párrafo para el texto de confirmación.
      */
-    marcarDiaComedor(datos) {
+    marcarDiaComedor(datos, pConfirmacion) {
         this.modelo.marcarDiaComedor(datos)
+         .then( resp => {pConfirmacion.textContent = 'Marcado correctamente el día ' + datos.dia})
          .catch(e => {
              console.error(e)
          })
@@ -208,8 +210,9 @@ class ControladorPadres {
      * Desmarcar día del comedor.
      * @param {Object} datos Datos del día.
      */
-    desmarcarDiaComedor(datos) {
+    desmarcarDiaComedor(datos, pConfirmacion) {
         this.modelo.desmarcarDiaComedor(datos)
+         .then( resp => {pConfirmacion.textContent = 'Desmarcado correctamente el día ' + datos.dia})         	
          .catch(e => {
              console.error(e)
          })

@@ -35,6 +35,7 @@ export class VistaInicioPadres extends Vista {
         this.tabla = this.div.querySelector('#menuHijos');
         this.thead = this.div.getElementsByTagName('thead')[0];
         this.tbody = this.div.getElementsByTagName('tbody')[0];
+        this.pConfirmacion = document.getElementById('pConfirmacion')
     }
 
     /**
@@ -183,6 +184,10 @@ export class VistaInicioPadres extends Vista {
                 // 3- Desactivar el poder interactuar con días ya pasados.
                 if (!checkbox.disabled && Date.parse(fechaActual) > Date.parse(fechaDia)) {
                     checkbox.disabled = true;
+                }                
+                // 4- Si es el lunes, no se puede activar si estamos a finde
+                if (i=== 0 && this.esFinde()){
+                    checkbox.disabled = true;
                 }
 
                 // Marcar los días que se hayan seleccionado previamente.
@@ -314,6 +319,15 @@ export class VistaInicioPadres extends Vista {
                 fechaDia.getDate() === fechaHoy.getDate() + 1 &&
                 fechaHoy.getHours() >= 14) || this.esDiaFestivo(this.formatearStringFecha(fechaHoy)));
     }
+    
+    /**
+     * Indica si hoy es viernes y son más de las 14:00 o sábado o domingo.
+     * @returns {Boolean}.
+     */
+    esFinde() {
+    	const hoy = new Date()
+    	return ((hoy.getDay() === 6 && hoy.getHours() >= 14) || hoy.getDay() === 7 || hoy.getDay() === 0) 
+    }
 
     /**
      * Marca o desmarcar los días de la semana actual entera.
@@ -424,10 +438,10 @@ export class VistaInicioPadres extends Vista {
         };
 
         if (marcado) {
-            this.controlador.marcarDiaComedor(datos);
+            this.controlador.marcarDiaComedor(datos, this.pConfirmacion);
         }
         else {
-            this.controlador.desmarcarDiaComedor(datos);
+            this.controlador.desmarcarDiaComedor(datos, this.pConfirmacion);
         }
     }
 

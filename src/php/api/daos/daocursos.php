@@ -11,7 +11,7 @@
          * @return array|boolean Array de los cursos, o false si no existen.
          */
         public static function obtenerCursos() {
-            $sql = 'SELECT id, nombre FROM Curso';
+            $sql = 'SELECT id, nombre FROM Curso ORDER BY orden';
             $resultado = BD::seleccionar($sql, null);
             return DAOCurso::crearCursos($resultado, true);
         }

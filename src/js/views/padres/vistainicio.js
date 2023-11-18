@@ -254,6 +254,8 @@ export class VistaInicioPadres extends Vista {
     marcarDesmarcarMes(marcado, mes, idHijo) {
         let numMes = mes.replace('mes-', '');
         let temp = new Date();
+				if (numMes < temp.getMonth())	//Si hemos cambiado de año
+					temp.setFullYear(temp.getFullYear() + 1)
         temp.setMonth(parseInt(numMes));
         temp.setDate(1);
         

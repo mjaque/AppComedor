@@ -259,8 +259,8 @@ export class VistaInicioPadres extends Vista {
     marcarDesmarcarMes(marcado, mes, idHijo) {
         let numMes = mes.replace('mes-', '');
         let temp = new Date();
-				if (numMes < temp.getMonth())	//Si hemos cambiado de año
-					temp.setFullYear(temp.getFullYear() + 1)
+        if (numMes < temp.getMonth())	//Si hemos cambiado de año
+			temp.setFullYear(temp.getFullYear() + 1)
         temp.setMonth(parseInt(numMes));
         temp.setDate(1);
         
@@ -314,7 +314,7 @@ export class VistaInicioPadres extends Vista {
      * @returns {Boolean} True si mañana debería ser bloqueado, false si no.
      */
     bloquearDiaTomorrow(fechaHoy, fechaDia) {
-        return ((fechaDia.getFullYear() === fechaHoy.getFullYear() &&
+                return ((fechaDia.getFullYear() === fechaHoy.getFullYear() &&
                 fechaDia.getMonth() === fechaHoy.getMonth() &&
                 fechaDia.getDate() === fechaHoy.getDate() + 1 &&
                 fechaHoy.getHours() >= 14) || this.esDiaFestivo(this.formatearStringFecha(fechaHoy)));
@@ -326,7 +326,7 @@ export class VistaInicioPadres extends Vista {
      */
     esFinde() {
     	const hoy = new Date()
-    	return ((hoy.getDay() === 6 && hoy.getHours() >= 14) || hoy.getDay() === 7 || hoy.getDay() === 0) 
+    	return ((hoy.getDay() === 5 && hoy.getHours() >= 14) || hoy.getDay() === 6 || hoy.getDay() === 0) 
     }
 
     /**

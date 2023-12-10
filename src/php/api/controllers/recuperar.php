@@ -64,7 +64,7 @@
             $titulo = 'Crear nueva contraseña Comedor EVG';
 
             // En local no usar acortador URL y poner: localhost/ComedorEVG/src/restaurar.html?codigo=' . $codigo
-            $enlaceRestauracion = 'https://guadalupe.fundacionloyola.net/appcomedor/restaurar.html?codigo=' . $codigo;
+            $enlaceRestauracion = 'https://aplicaciones.esvirgua.com/appcomedor/restaurar.html?codigo=' . $codigo;
 
             $mensaje = $datos->nombre . ', pulse en el siguiente enlace para crear una ';
             $mensaje .= ' <a href="' .  $this->obtenerUrlAcortada($enlaceRestauracion) . '">contraseña nueva</a>.';

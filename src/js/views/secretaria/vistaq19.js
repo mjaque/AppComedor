@@ -51,7 +51,7 @@ export class VistaQ19 extends Vista {
      */
     iniciar(q19, mes) {
 			this.#mes = mes
-			console.log(q19)
+			this.limpiar()
 			q19.forEach( (recibo, indice) => {
 					this.tbody.append(this.crearFila(recibo, indice))
 				})

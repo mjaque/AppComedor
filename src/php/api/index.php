@@ -1,4 +1,5 @@
 <?php
+
     /**
      * Router del API REST de la aplicación
      * Su responsabilidad es procesar la petición HTTP para decidir a qué controlador llamar (routing).
@@ -13,8 +14,9 @@
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
+     
     }
-
+  
     try {
         // Inyección de dependencias
         require_once('./services/bd.php');
@@ -22,7 +24,7 @@
         BD::$host = $config['host_bd'];
         BD::$usuario = $config['usuario_bd'];
         BD::$clave = $config['clave_bd'];
-
+    
         // Peticiones especiales de depuración
         if ($config['debug']) {
             if ($_SERVER['QUERY_STRING'] == 'cargarBDPruebas') {

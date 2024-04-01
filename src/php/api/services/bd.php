@@ -28,7 +28,7 @@
                 );
                 self::$conexion = new PDO($uri, self::$usuario, self::$clave, $opciones);
             }
-
+           
             return self::$conexion;
         }
 
@@ -97,7 +97,7 @@
         public static function insertar($sql, $params = null){
             return BD::ejecutar($sql, $params, true);
         }
-
+        
         /**
          * Realiza una sentencia sobre la base de datos.
          * @param string $sql SQL de la sentencia.
@@ -114,4 +114,3 @@
                 return $conexion->lastInsertId();
         }
     }
-?>

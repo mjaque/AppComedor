@@ -64,7 +64,7 @@ export class Rest {
 		.then(respuesta => {
 		  // Control de Errores
 		  if (!respuesta.ok) { throw Error(`${respuesta.status} - ${respuesta.statusText}`) }
-  
+			
 		  if (json) return respuesta.json() // Si fuera json.
 		  // La respuesta es un texto con la URL del recurso creado.
 		  else return respuesta.text()

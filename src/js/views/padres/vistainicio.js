@@ -314,23 +314,24 @@ export class VistaInicioPadres extends Vista {
      * @returns {Boolean} True si mañana debería ser bloqueado, false si no.
      */
     bloquearDiaTomorrow(fechaHoy, fechaDia) {
-                //Si hoy ya han pasado las 14:00 y fechaDia es mañana, false
-                if (fechaDia.getFullYear() === fechaHoy.getFullYear() &&
-                fechaDia.getMonth() === fechaHoy.getMonth() &&
-                fechaDia.getDate() === fechaHoy.getDate() + 1 &&
-                fechaHoy.getHours() >= 14)
-                    return false
-                //Si hoy es festivo, y no hay ningún día no festivo entre fechaHoy y fechaDia, false
-                //&& this.esDiaFestivo(this.formatearStringFecha(fechaHoy)));
-                if (this.esDiaFestivo(this.formatearStringFecha(fechaHoy))){
-                    while(fechaDia < fechaHoy){
-                        fechaHoy.setDate(fechaHoy.getDate() + 1)
-                        if (!this.esDiaFestivo(this.formatearStringFecha(fechaHoy)))
-                            return true;
-                    }
-                }
-                return false;
+        // Si hoy es más tarde de las 14:00, bloquear mañana
+        if (
+            (fechaHoy.getHours() >= 14 || this.esDiaFestivo(this.formatearStringFecha(fechaHoy))) &&
+            this.sonFechasConsecutivas(fechaHoy, fechaDia)
+        ) {
+            return true;
+        }
+    
+        return false;
     }
+    
+    sonFechasConsecutivas(fecha1, fecha2) {
+        const unDiaEnMS = 24 * 60 * 60 * 1000; // Milisegundos en un día
+        const diff = Math.abs(fecha2 - fecha1);
+        const diffDays = Math.round(diff / unDiaEnMS);
+        return diffDays === 0;
+    }
+    
     
     /**
      * Indica si hoy es viernes y son más de las 14:00 o sábado o domingo.

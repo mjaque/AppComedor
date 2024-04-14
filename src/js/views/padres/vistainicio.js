@@ -339,7 +339,7 @@ export class VistaInicioPadres extends Vista {
      */
     esFinde() {
     	const hoy = new Date()
-    	return ((hoy.getDay() === 5 && hoy.getHours() >= 14) || hoy.getDay() === 6 || hoy.getDay() === 0) 
+    	return ((hoy.getDay() === 0 && hoy.getHours() >= 14) ) 
     }
 
     /**

@@ -564,7 +564,7 @@
           	throw new Exception('No se pudo confirmar la transacción.');
         }
 
-
+        
         /**
          * Modifica fila de la tabla 'Persona'
          * @param object $datos Datos de la Persona.

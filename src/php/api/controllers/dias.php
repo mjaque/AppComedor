@@ -47,24 +47,39 @@
                 die();
             }
         
-            // Verificar si la fecha enviada es menor que la fecha actual
-            $fechaActual = date('Y-m-d');
-            if ($datos->dia < $fechaActual) {
+            // Convertir la fecha enviada a objeto DateTime
+            $fecha = new DateTime($datos->dia);
+            $fechaActual = new DateTime();
+            $horaActual = (int)$fechaActual->format('H');
+        
+            // Verificar si la fecha enviada es menor o igual que la fecha actual
+            if ($fecha <= $fechaActual) {
                 header('HTTP/1.1 400 Bad Request');
-                echo json_encode(array("error" => "La fecha enviada es menor que la fecha actual"));
+                echo json_encode(array("error" => "La fecha enviada es menor o igual que la fecha actual"));
+                die();
+            }
+        
+            // Verificar si la fecha enviada es el día siguiente y si ya pasó las 14:00 horas del día actual
+            $limiteModificacion = new DateTime();
+            $limiteModificacion->setTime(14, 0, 0); // La hora límite es las 14:00
+            $fechaSiguiente = (new DateTime())->modify('+1 day')->setTime(0, 0, 0);
+        
+            if ($fecha == $fechaSiguiente && $horaActual >= 14) {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(array("error" => "No se pueden marcar días siguientes después de las 14:00 horas del día actual"));
                 die();
             }
         
             // Es fin de semana
-            $diaSemana = date('w', strtotime($datos->dia));
-            if ($diaSemana == 0 || $diaSemana == 6) {
+            $diaSemana = (int)$fecha->format('w');
+            if ($diaSemana === 0 || $diaSemana === 6) {
                 // Abortamos sin error
                 header('HTTP/1.1 200 OK');
                 die();
             }
         
             // ¿Es festivo?
-            if (DAOFestivos::esFestivo($datos->dia)) {
+            if (DAOFestivos::esFestivo($fecha->format('Y-m-d'))) {
                 // Abortamos sin error
                 header('HTTP/1.1 200 OK');
                 die();
@@ -76,6 +91,8 @@
             die();
         }
         
+        
+        
 
         /**
          * Borrar fila de la tabla dias
@@ -83,35 +100,59 @@
          * @param array $queryParams No utilizado.
          * @param object $usuario Usuario que realiza el proceso.
          */
-        function delete($pathParams, $queryParams, $usuario) {
-            // Si no existe $usuario, es porque la autorización ha fallado.
-            if (!$usuario) {
-                header('HTTP/1.1 401 Unauthorized');
+       function delete($pathParams, $queryParams, $usuario) {
+    // Si no existe $usuario, es porque la autorización ha fallado.
+    if (!$usuario) {
+        header('HTTP/1.1 401 Unauthorized');
+        die();
+    }
+
+    if (count($pathParams)) {
+        $fecha = new DateTime($pathParams[0]);
+        $fecha = $fecha->format('Y-m-d');
+
+        // Obtener la fecha actual y la hora actual
+        $fechaActual = new DateTime();
+        $fechaActual->setTime(0, 0, 0); // Ajustar la hora a medianoche
+        $horaActual = (int)date('H');
+
+        // Calcular la fecha límite para la modificación
+        $limiteModificacion = new DateTime();
+        $limiteModificacion->setTime(14, 0, 0); // La hora límite es las 14:00
+
+        // Verificar si la fecha enviada es para el día siguiente
+        $fechaSiguiente = new DateTime();
+        $fechaSiguiente->modify('+1 day');
+        $fechaSiguiente->setTime(0, 0, 0);
+
+        if ($fecha == $fechaSiguiente->format('Y-m-d')) {
+            // Si es el día siguiente, comprobar la hora
+            if ($fechaActual <= $limiteModificacion && $horaActual >= 14) {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(array("error" => "No se pueden eliminar registros del día siguiente después de las 14:00 horas del día actual"));
                 die();
-            }
-        
-            if (count($pathParams)) {
-                $fecha = new DateTime($pathParams[0]);
-                $fecha = $fecha->format('Y-m-d');
-        
-                // Verificar si la fecha enviada es menor que la fecha actual
-                $fechaActual = date('Y-m-d');
-                if ($fecha < $fechaActual) {
-                    header('HTTP/1.1 400 Bad Request');
-                    echo json_encode(array("error" => "La fecha enviada es menor que la fecha actual"));
-                    die();
-                }
-        
+            } else {
                 DAOUsuario::eliminarDia($fecha, $pathParams[1], $pathParams[2]);
-        
                 header('HTTP/1.1 200 OK');
                 die();
             }
-            else {
-                header('HTTP/1.1 400 Bad Request');
-                die();
-            }
+        } elseif ($fecha > $fechaSiguiente->format('Y-m-d')) {
+            // Si es un día posterior al siguiente, permitir la eliminación
+            DAOUsuario::eliminarDia($fecha, $pathParams[1], $pathParams[2]);
+            header('HTTP/1.1 200 OK');
+            die();
+        } else {
+            // Si es un día anterior, devolver un error
+            header('HTTP/1.1 400 Bad Request');
+            echo json_encode(array("error" => "No se pueden eliminar registros de días anteriores o del día actual"));
+            die();
         }
+    } else {
+        header('HTTP/1.1 400 Bad Request');
+        die();
+    }
+}
+
         
     }
 ?>

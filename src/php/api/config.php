@@ -2,6 +2,7 @@
     /**
      * Fichero de configuración
      */
+    define("HORALIMITE",14);
     return array(
         'debug' => true,    // En modo debug se muestran los errores.
         'test' => false,     // En modo test, se permite el acceso a usuarios de test

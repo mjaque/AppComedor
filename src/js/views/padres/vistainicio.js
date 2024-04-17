@@ -145,99 +145,97 @@ export class VistaInicioPadres extends Vista {
         this.tbody.innerHTML = '';  // Limpiar contenido calendario previo.
         for (const hijo of this.hijos) {
             let trBody = document.createElement('tr');
-
+    
             let tdHijo = document.createElement('td');
             tdHijo.classList.add('tdHijos');
             tdHijo.textContent = hijo.nombre;
             trBody.appendChild(tdHijo);
-
+    
             let cont = 0;
-
+    
             for (let i=0; i<5; i++) {
                 let td = document.createElement('td');
                 let checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
-
+    
                 let fechaDia = new Date(this.inicioSemana);
                 fechaDia.setDate(fechaDia.getDate() + i);
                 fechaDia.setUTCHours(0, 0, 0, 0); // Limpiar el time de la fecha, para que no arruine comprobación posterior.
-
+    
                 let fechaString = this.formatearStringFecha(fechaDia);
                 let idString = 'fecha-' + hijo.id + '-' + fechaString;
-
+    
                 checkbox.id = idString;
                 checkbox.addEventListener('click', () => this.marcarDesmarcarDia(checkbox.checked, hijo.id, this.idPadre, true, checkbox.id));
-
+    
                 // Comprobaciones:
                 const fechaActual = new Date();
-
+    
                 // 1- Días festivos.
                 if (this.festivos && this.festivos.includes(fechaString)) {
                     checkbox.disabled = true;
                 }
-
+    
                 // 2- No poder interactuar con el día de mañana si hoy son las 14 o más.
-                if (!checkbox.disabled && this.bloquearDiaTomorrow(fechaActual, fechaDia)) {
+                if (!checkbox.disabled && ((fechaActual.getHours() >= 14 || this.esDiaFestivo(this.formatearStringFecha(fechaActual))) && this.sonFechasConsecutivas(fechaActual, fechaDia))) {
                     checkbox.disabled = true;
                 }
-
+    
                 // 3- Desactivar el poder interactuar con días ya pasados.
                 if (!checkbox.disabled && Date.parse(fechaActual) > Date.parse(fechaDia)) {
                     checkbox.disabled = true;
                 }                
-                // 4- Si es el lunes, no se puede activar si estamos a finde
-                if (i=== 0 && this.esFinde() && (fechaDia.getTime() - fechaActual.getTime() < 2*24*60*60*1000)){
-                    checkbox.disabled = true;
-                }
-
+             
+    
                 // Marcar los días que se hayan seleccionado previamente.
                 if (this.diasComedor.length > 0) {
                     for (const diaComedor of this.diasComedor) {
                         let fecha = new Date(diaComedor.dia);
-
+    
                         if (fecha.valueOf() === fechaDia.valueOf() && diaComedor.idPersona == hijo.id) {
                             checkbox.checked = true;
                             cont++;
-
+    
                             // Si ese día no ha sido asignado por el padre actual, desactivar checkbox
                             if (!checkbox.disabled && diaComedor.idPadre != this.idPadre) {
                                 checkbox.disabled = true;
-                                checkbox.title = 'Este día a sido asignado por otro progenitor.';
+                                checkbox.title = 'Este día ha sido asignado por otro progenitor.';
                             }
                         }
                     }
                 }
-
+    
                 td.appendChild(checkbox);
                 trBody.appendChild(td);
             }
-
+    
             let tdSemanaEntera = document.createElement('td');
             tdSemanaEntera.classList.add('tdSemanaEntera');
-
+    
             let checkboxSemanaEntera = document.createElement('input');
             checkboxSemanaEntera.type = 'checkbox';
             checkboxSemanaEntera.addEventListener('click', () => this.marcarDesmarcarSemana(checkboxSemanaEntera.checked, this.inicioSemana, hijo.id));
             
             tdSemanaEntera.appendChild(checkboxSemanaEntera);
             trBody.appendChild(tdSemanaEntera);
-
+    
             // Si toda la semana está marcada por el padre actual, marcar checkbox de semana entera.
             if (cont==5) 
                 checkboxSemanaEntera.checked = true;
-
+    
             let tdMesEntero = document.createElement('td');
             let checkboxMesEntero = document.createElement('input');
             checkboxMesEntero.type = 'checkbox';
             checkboxMesEntero.id = 'mes-' + this.inicioSemana.getMonth();
             checkboxMesEntero.addEventListener('click', () => this.marcarDesmarcarMes(checkboxMesEntero.checked, checkboxMesEntero.id, hijo.id));
-
+    
             tdMesEntero.appendChild(checkboxMesEntero);
             trBody.appendChild(tdMesEntero);
             
             this.tbody.appendChild(trBody);
         }  
     }
+    
 
     /**
      * Formatea una fecha con un formato específico.
@@ -256,47 +254,49 @@ export class VistaInicioPadres extends Vista {
      * @param {String} mes Texto con el mes.
      * @param {Number} idHijo ID del hijo.
      */
-    marcarDesmarcarMes(marcado, mes, idHijo) {
-        let numMes = mes.replace('mes-', '');
-        let temp = new Date();
-        if (numMes < temp.getMonth())	//Si hemos cambiado de año
-			temp.setFullYear(temp.getFullYear() + 1)
-        temp.setMonth(parseInt(numMes));
-        temp.setDate(1);
-        
-        let diasMes = new Date(parseInt(temp.getFullYear()), parseInt(temp.getMonth()) + 1, 0).getDate();
+  
 
-        for (let i=0; i<diasMes; i++) {
-            const actual = new Date();
-            let stringFecha = this.formatearStringFecha(temp);
-            let diaYaMarcado = false;
+marcarDesmarcarMes(marcado, mes, idHijo) {
+    let numMes = mes.replace('mes-', '');
+    let temp = new Date();
+    if (numMes < temp.getMonth())	//Si hemos cambiado de año
+        temp.setFullYear(temp.getFullYear() + 1)
+    temp.setMonth(parseInt(numMes));
+    temp.setDate(1);
+    
+    let diasMes = new Date(parseInt(temp.getFullYear()), parseInt(temp.getMonth()) + 1, 0).getDate();
 
-            // Comprobar que el hijo no tenga el día actual ya marcado de antes.
-            if (marcado && this.diasComedor && this.diasComedor.length > 0) {
-                for (const diaComedor of this.diasComedor) {
-                    if (diaComedor.idPersona == idHijo && diaComedor.dia == stringFecha) {
-                        diaYaMarcado = true;
-                        break;
-                    }
+    for (let i=0; i<diasMes; i++) {
+        const actual = new Date();
+        let stringFecha = this.formatearStringFecha(temp);
+        let diaYaMarcado = false;
+
+        // Comprobar que el hijo no tenga el día actual ya marcado de antes.
+        if (marcado && this.diasComedor && this.diasComedor.length > 0) {
+            for (const diaComedor of this.diasComedor) {
+                if (diaComedor.idPersona == idHijo && diaComedor.dia == stringFecha) {
+                    diaYaMarcado = true;
+                    break;
                 }
             }
-
-            // 1º Día no está ya previamente marcado.
-            // 2º Comprobar que no sean días ya pasados.
-            // 3º Comprobar si el próximo día a hoy es mañana y hoy son las 14 o más.
-            // 4º Comprobar, que no es un festivo.
-            if (!diaYaMarcado && Date.parse(actual) < Date.parse(temp) && !this.bloquearDiaTomorrow(actual, temp) && !this.esDiaFestivo(stringFecha)) {
-                // 5º Comprobar que el día no sea fin de semana.
-                if (temp.getDay() != 6 || temp.getDay() != 0) {
-                    let fechaFormateada = temp.getFullYear() + '-' + (temp.getMonth() + 1) + '-' + temp.getDate();
-                    this.marcarDesmarcarDia(marcado, idHijo, this.idPadre, false, fechaFormateada);
-                }
-            }
-            temp.setDate(temp.getDate() + 1);
         }
 
-        this.refrescarCalendario();
+        // 1º Día no está ya previamente marcado.
+        // 2º Comprobar que no sean días ya pasados.
+        // 3º Comprobar si el próximo día a hoy es mañana y hoy son las 14 o más.
+        // 4º Comprobar, que no es un festivo.
+        if (!diaYaMarcado && Date.parse(actual) < Date.parse(temp) && !((actual.getHours() >= 14 || this.esDiaFestivo(this.formatearStringFecha(actual))) && this.sonFechasConsecutivas(actual, temp)) && !this.esDiaFestivo(stringFecha)) {
+            // 5º Comprobar que el día no sea fin de semana.
+            if (temp.getDay() != 6 && temp.getDay() != 0) {
+                let fechaFormateada = temp.getFullYear() + '-' + (temp.getMonth() + 1) + '-' + temp.getDate();
+                this.marcarDesmarcarDia(marcado, idHijo, this.idPadre, false, fechaFormateada);
+            }
+        }
+        temp.setDate(temp.getDate() + 1);
     }
+
+    this.refrescarCalendario();
+}
 
     /**
      * Comprobar si una fecha es festiva o no.
@@ -307,23 +307,6 @@ export class VistaInicioPadres extends Vista {
         return (this.festivos && this.festivos.includes(stringFecha));
     }
 
-    /**
-     * Comprobar si puede o no interactuar con el día de mañana si hoy son las 14 o más o si hoy es festivo.
-     * @param {Date} fechaHoy Fecha actual.
-     * @param {Date} fechaDia Fecha mañana.
-     * @returns {Boolean} True si mañana debería ser bloqueado, false si no.
-     */
-    bloquearDiaTomorrow(fechaHoy, fechaDia) {
-        // Si hoy es más tarde de las 14:00, bloquear mañana
-        if (
-            (fechaHoy.getHours() >= 14 || this.esDiaFestivo(this.formatearStringFecha(fechaHoy))) &&
-            this.sonFechasConsecutivas(fechaHoy, fechaDia)
-        ) {
-            return true;
-        }
-    
-        return false;
-    }
     
     sonFechasConsecutivas(fecha1, fecha2) {
         const unDiaEnMS = 24 * 60 * 60 * 1000; // Milisegundos en un día
@@ -332,16 +315,6 @@ export class VistaInicioPadres extends Vista {
         return diffDays === 0;
     }
     
-    
-    /**
-     * Indica si hoy es viernes y son más de las 14:00 o sábado o domingo.
-     * @returns {Boolean}.
-     */
-    esFinde() {
-    	const hoy = new Date()
-    	return ((hoy.getDay() === 0 && hoy.getHours() >= 14) ) 
-    }
-
     /**
      * Marca o desmarcar los días de la semana actual entera.
      * @param {Boolean} marcado Marcar o desmarcar días.

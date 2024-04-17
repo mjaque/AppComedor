@@ -1,7 +1,7 @@
 <?php
     require_once(dirname(__DIR__) . '/daos/daousuario.php');
     require_once(dirname(__DIR__) . '/daos/daofestivos.php');
-
+    require_once(dirname(__DIR__) . '/../api/config.php');
     /**
      * Controlador de hijos.
      */
@@ -12,7 +12,10 @@
          * @param array $queryParams Array de IDs.
          * @param object $usuario Usuario que realiza el proceso.
          */
-        function get($pathParams, $queryParams, $usuario) {
+          
+        
+
+                function get($pathParams, $queryParams, $usuario) {
             // Si no existe $usuario, es porque la autorización ha fallado.
             if (!$usuario) {
                 header('HTTP/1.1 401 Unauthorized');
@@ -41,6 +44,7 @@
          * @param object $usuario Usuario que realiza el proceso.
          */
         function post($pathParams, $queryParams, $datos, $usuario) {
+          
             // Si no existe $usuario, es porque la autorización ha fallado.
             if (!$usuario) {
                 header('HTTP/1.1 401 Unauthorized');
@@ -59,12 +63,12 @@
                 die();
             }
         
-            // Verificar si la fecha enviada es el día siguiente y si ya pasó las 14:00 horas del día actual
+            // Verificar si la fecha enviada es el día siguiente y si ya pasó las HORALIMITE:00 horas del día actual
             $limiteModificacion = new DateTime();
-            $limiteModificacion->setTime(14, 0, 0); // La hora límite es las 14:00
+            $limiteModificacion->setTime(HORALIMITE, 0, 0); // La hora límite es las HORALIMITE:00
             $fechaSiguiente = (new DateTime())->modify('+1 day')->setTime(0, 0, 0);
         
-            if ($fecha == $fechaSiguiente && $horaActual >= 14) {
+            if ($fecha == $fechaSiguiente && $horaActual >= HORALIMITE) {
                 header('HTTP/1.1 400 Bad Request');
                 echo json_encode(array("error" => "No se pueden marcar días siguientes después de las 14:00 horas del día actual"));
                 die();
@@ -91,9 +95,6 @@
             die();
         }
         
-        
-        
-
         /**
          * Borrar fila de la tabla dias
          * @param array $pathParams Datos del día.
@@ -101,6 +102,7 @@
          * @param object $usuario Usuario que realiza el proceso.
          */
        function delete($pathParams, $queryParams, $usuario) {
+       
     // Si no existe $usuario, es porque la autorización ha fallado.
     if (!$usuario) {
         header('HTTP/1.1 401 Unauthorized');
@@ -118,7 +120,7 @@
 
         // Calcular la fecha límite para la modificación
         $limiteModificacion = new DateTime();
-        $limiteModificacion->setTime(14, 0, 0); // La hora límite es las 14:00
+        $limiteModificacion->setTime(HORALIMITE, 0, 0); // La hora límite es las HORALIMITE:00
 
         // Verificar si la fecha enviada es para el día siguiente
         $fechaSiguiente = new DateTime();
@@ -127,7 +129,7 @@
 
         if ($fecha == $fechaSiguiente->format('Y-m-d')) {
             // Si es el día siguiente, comprobar la hora
-            if ($fechaActual <= $limiteModificacion && $horaActual >= 14) {
+            if ($fechaActual <= $limiteModificacion && $horaActual >= HORALIMITE) {
                 header('HTTP/1.1 400 Bad Request');
                 echo json_encode(array("error" => "No se pueden eliminar registros del día siguiente después de las 14:00 horas del día actual"));
                 die();

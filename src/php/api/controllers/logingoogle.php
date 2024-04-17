@@ -17,7 +17,7 @@
         public static $clave = null;
         public static $algoritmo_encriptacion = null;
         public static $iv = 'Sd5LzPt2fxW+rQfF';
-				private static $secretaria = ['mjaque@fundacionloyola.es'];
+				private static $secretaria = ['antonioreyesrabel.guadalupe@alumnado.fundacionloyola.net'];
 
         //Id de cliente de Google.
         private static $ID_CLIENTE = '829640902680-48t2uq3us7qit3ehbusp2t6fldfeh6r6.apps.googleusercontent.com';

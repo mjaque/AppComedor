@@ -184,13 +184,19 @@ class ControladorPadres {
      * @param {Object} datos Datos del día a marcar.
        @param {HTMLElement} pConfirmacion párrafo para el texto de confirmación.
      */
-    marcarDiaComedor(datos, pConfirmacion) {
-        this.modelo.marcarDiaComedor(datos)
-         .then( resp => {pConfirmacion.textContent = 'Marcado correctamente el día ' + datos.dia})
-         .catch(e => {
-             console.error(e)
-         })
-    }
+   marcarDiaComedor(datos, pConfirmacion) {
+    this.modelo.marcarDiaComedor(datos)
+        .then(resp => {
+            // Si la solicitud se completó correctamente
+            pConfirmacion.textContent = 'Marcado correctamente el día ' + datos.dia;
+        })
+        .catch(error => {
+            {
+                pConfirmacion.textContent = 'Error en la solicitud. Consulta la consola para más detalles.';
+            }
+        });
+}
+
 
     /**
      * Obtiene los días de comedor de los hijos.
@@ -212,10 +218,14 @@ class ControladorPadres {
      */
     desmarcarDiaComedor(datos, pConfirmacion) {
         this.modelo.desmarcarDiaComedor(datos)
-         .then( resp => {pConfirmacion.textContent = 'Desmarcado correctamente el día ' + datos.dia})         	
-         .catch(e => {
-             console.error(e)
-         })
+         .then( resp => {pConfirmacion.textContent = 'Desmarcado correctamente el día ' + datos.dia
+        })         	
+         .catch(error => {
+            {
+                pConfirmacion.textContent = 'Error en la solicitud. Consulta la consola para más detalles.';
+            }
+        });
+         
     }
 
     /**

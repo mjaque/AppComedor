@@ -186,7 +186,7 @@ export class VistaInicioPadres extends Vista {
                     checkbox.disabled = true;
                 }                
                 // 4- Si es el lunes, no se puede activar si estamos a finde
-                if (i=== 0 && this.esFinde()){
+                if (i=== 0 && this.esFinde() && (fechaDia.getTime() - fechaActual.getTime() < 2*24*60*60*1000)){
                     checkbox.disabled = true;
                 }
 
@@ -259,6 +259,8 @@ export class VistaInicioPadres extends Vista {
     marcarDesmarcarMes(marcado, mes, idHijo) {
         let numMes = mes.replace('mes-', '');
         let temp = new Date();
+        if (numMes < temp.getMonth())	//Si hemos cambiado de año
+			temp.setFullYear(temp.getFullYear() + 1)
         temp.setMonth(parseInt(numMes));
         temp.setDate(1);
         
@@ -306,16 +308,28 @@ export class VistaInicioPadres extends Vista {
     }
 
     /**
-     * Comprobar si puede o no interactuar con el día de mañana si hoy son las 14 o más.
+     * Comprobar si puede o no interactuar con el día de mañana si hoy son las 14 o más o si hoy es festivo.
      * @param {Date} fechaHoy Fecha actual.
      * @param {Date} fechaDia Fecha mañana.
      * @returns {Boolean} True si mañana debería ser bloqueado, false si no.
      */
     bloquearDiaTomorrow(fechaHoy, fechaDia) {
-        return fechaDia.getFullYear() === fechaHoy.getFullYear() &&
+                //Si hoy ya han pasado las 14:00 y fechaDia es mañana, false
+                if (fechaDia.getFullYear() === fechaHoy.getFullYear() &&
                 fechaDia.getMonth() === fechaHoy.getMonth() &&
                 fechaDia.getDate() === fechaHoy.getDate() + 1 &&
-                fechaHoy.getHours() >= 14;
+                fechaHoy.getHours() >= 14)
+                    return false
+                //Si hoy es festivo, y no hay ningún día no festivo entre fechaHoy y fechaDia, false
+                //&& this.esDiaFestivo(this.formatearStringFecha(fechaHoy)));
+                if (this.esDiaFestivo(this.formatearStringFecha(fechaHoy))){
+                    while(fechaDia < fechaHoy){
+                        fechaHoy.setDate(fechaHoy.getDate() + 1)
+                        if (!this.esDiaFestivo(this.formatearStringFecha(fechaHoy)))
+                            return true;
+                    }
+                }
+                return false;
     }
     
     /**
@@ -324,7 +338,7 @@ export class VistaInicioPadres extends Vista {
      */
     esFinde() {
     	const hoy = new Date()
-    	return ((hoy.getDay() === 6 && hoy.getHours() >= 14) || hoy.getDay() === 7 || hoy.getDay() === 0) 
+    	return ((hoy.getDay() === 5 && hoy.getHours() >= 14) || hoy.getDay() === 6 || hoy.getDay() === 0) 
     }
 
     /**

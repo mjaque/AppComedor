@@ -24,4 +24,16 @@ export class Vista {
             this.div.style.display = 'none';
         }
     }
+    /**
+    *	Elimina los nodos hijos de un nodo.
+    *   @param {HTMLElement} nodo. El nodo del que se eliminarán los hijos.
+    */
+     eliminarHijos(nodo){
+    	while (nodo.firstChild)
+    		nodo.removeChild(myNode.lastChild)
+    }
+    eliminarHijos(nodo){
+    	while (nodo.firstChild)
+    		nodo.removeChild(myNode.lastChild)
+    }
 }

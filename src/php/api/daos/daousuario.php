@@ -151,6 +151,7 @@
                 $sql .= $resultado['idPersona'] . ',';
             
             $sql = substr_replace($sql, ")", -1);
+            $sql .= ' ORDER BY apellidos';
             $usuarios = BD::seleccionar($sql, null);
             
             if (!BD::commit())

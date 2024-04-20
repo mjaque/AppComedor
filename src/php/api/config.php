@@ -15,6 +15,9 @@
         'bd' => 'appcomedor',
         'host_bd' => 'localhost',
         'usuario_bd' => 'appcomedor',
-        'clave_bd' => 'appcomedor'
+        'clave_bd' => 'appcomedor',
+
+				// Hora límite para modificaciones
+        'hora_limita' => 14
     );
 ?>

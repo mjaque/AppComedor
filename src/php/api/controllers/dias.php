@@ -6,6 +6,9 @@
      * Controlador de hijos.
      */
     class Dias {
+        // Se configura por inyección de dependencias
+        public static $hora_limite = null;
+
         /**
          * Obtener filas de la tabla dias.
          * @param array $pathParams No utilizado.

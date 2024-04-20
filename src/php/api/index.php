@@ -134,6 +134,7 @@
 
             case 'dias':
                 require_once('./controllers/dias.php');
+        				Dias::$hora_limite = $config['hora_limite'];
                 $controlador = new Dias();
                 break;
 
@@ -152,27 +153,27 @@
                 die();
         }
         if ($controlador) {
-            switch($metodo) {
-                case 'GET':
-                    $controlador->get($pathParams, $queryParams, $usuario);
-                    die();
+					switch($metodo) {
+							case 'GET':
+									$controlador->get($pathParams, $queryParams, $usuario);
+									die();
 
-                case 'POST':
-                    $controlador->post($pathParams, $queryParams, $body, $usuario);
-                    die();
+							case 'POST':
+									$controlador->post($pathParams, $queryParams, $body, $usuario);
+									die();
 
-                case 'DELETE':
-                    $controlador->delete($pathParams, $queryParams, $usuario);
-                    die();
+							case 'DELETE':
+									$controlador->delete($pathParams, $queryParams, $usuario);
+									die();
 
-                case 'PUT':
-                    $controlador->put($pathParams, $queryParams, $body, $usuario);
-                    die();
+							case 'PUT':
+									$controlador->put($pathParams, $queryParams, $body, $usuario);
+									die();
 
-                default:
-                    header('HTTP/1.1 501 Not Implemented');
-                    die();
-            }
+							default:
+									header('HTTP/1.1 501 Not Implemented');
+									die();
+					}
         }
         else {
             header('HTTP/1.1 501 Not Implemented');

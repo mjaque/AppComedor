@@ -18,6 +18,6 @@
         'clave_bd' => 'appcomedor',
 
 				// Hora límite para modificaciones
-        'hora_limita' => 14
+        'hora_limite' => 14
     );
 ?>

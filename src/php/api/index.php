@@ -134,7 +134,7 @@
 
             case 'dias':
                 require_once('./controllers/dias.php');
-        				Dias::$hora_limite = $config['hora_limite'];
+        		Dias::$hora_limite = $config['hora_limite'];
                 $controlador = new Dias();
                 break;
 

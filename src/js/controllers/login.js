@@ -17,11 +17,23 @@ class Login {
         this.form = document.getElementsByTagName('form')[0];
         this.email = document.getElementsByTagName('input')[0];
         this.clave = document.getElementsByTagName('input')[1];
+        this.verClave = document.querySelector('input[type="checkbox"]')
         this.btnAceptar = document.getElementsByTagName('button')[0];
         this.divCargando = document.getElementById('loadingImg');
         this.divError = document.getElementById('divError');
 
         this.btnAceptar.addEventListener('click', this.validarFormulario.bind(this));
+        this.verClave.addEventListener('click', this.mostrarClave.bind(this))
+    }
+    
+    /**
+    	Cambia la visibilidad del campo de clave
+    **/
+    mostrarClave(){
+    	if (this.clave.type === 'password')
+    		this.clave.type = 'text'
+    	else
+    		this.clave.type = 'password'
     }
 
     /**

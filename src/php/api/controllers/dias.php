@@ -64,10 +64,10 @@
         
             // Verificar si la fecha enviada es el día siguiente y si ya pasó las HORALIMITE:00 horas del día actual
             $limiteModificacion = new DateTime();
-            $limiteModificacion->setTime(HORALIMITE, 0, 0); // La hora límite es las HORALIMITE:00
+            $limiteModificacion->setTime(self::$hora_limite, 0, 0); // La hora límite es las HORALIMITE:00
             $fechaSiguiente = (new DateTime())->modify('+1 day')->setTime(0, 0, 0);
         
-            if ($fecha == $fechaSiguiente && $horaActual >= HORALIMITE) {
+            if ($fecha == $fechaSiguiente && $horaActual >= self::$hora_limite) {
                 header('HTTP/1.1 400 Bad Request');
                 echo json_encode(array("error" => "No se pueden marcar días siguientes después de las 14:00 horas del día actual"));
                 die();
@@ -118,7 +118,7 @@
 
                 // Calcular la fecha límite para la modificación
                 $limiteModificacion = new DateTime();
-                $limiteModificacion->setTime(HORALIMITE, 0, 0); // La hora límite es las HORALIMITE:00
+                $limiteModificacion->setTime(self::$hora_limite, 0, 0); // La hora límite es las HORALIMITE:00
 
                 // Verificar si la fecha enviada es para el día siguiente
                 $fechaSiguiente = new DateTime();
@@ -127,7 +127,7 @@
 
                 if ($fecha == $fechaSiguiente->format('Y-m-d')) {
                     // Si es el día siguiente, comprobar la hora
-                    if ($fechaActual <= $limiteModificacion && $horaActual >= HORALIMITE) {
+                    if ($fechaActual <= $limiteModificacion && $horaActual >= self::$hora_limite) {
                         header('HTTP/1.1 400 Bad Request');
                         echo json_encode(array("error" => "No se pueden eliminar registros del día siguiente después de las 14:00 horas del día actual"));
                         die();

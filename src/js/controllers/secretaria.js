@@ -72,6 +72,16 @@ class ControladorSecretaria {
          })
     }
     
+    obtenerTuppers(fecha) {
+        return this.modelo.obtenerTupper(fecha)
+         .then(tuppers => {
+             this.vistaGestionDiaria.cargarTuppers(tuppers);
+         })
+         .catch(e => {
+             console.error(e);
+         })
+    }
+    
     /**
      * Obtiene las incidencias de un mes.
      * @param {Number} mes Mes.
@@ -101,13 +111,20 @@ class ControladorSecretaria {
              if (textarea) this.vistaGestionDiaria.insercionError(textarea);
          })
     }
+    
+    insertarTupper(datos) {
+        this.modelo.insertarTupper(datos)
+         .catch(e => {
+             console.error(e);
+         })
+    }
 
     /**
      * Obtiene los usuarios que van al comedor de una fecha.
      * @param {String} fecha String de la fecha.
      */
     obtenerUsuarios(fecha) {
-        this.modelo.obtenerUsuariosApuntados(fecha)
+        return this.modelo.obtenerUsuariosApuntados(fecha)
          .then(usuarios => {
              this.vistaGestionDiaria.cargarIncidencias(usuarios);
          })
@@ -130,7 +147,10 @@ class ControladorSecretaria {
         })
     }
 
-		ocultarVistas(){
+    /**
+     * Oculta las vistas.
+    */
+	ocultarVistas(){
         this.vistaGestionDiaria.mostrar(false);
         this.vistaGestionMensual.mostrar(false);
         this.vistaGestionPadres.mostrar(false);
@@ -161,8 +181,11 @@ class ControladorSecretaria {
         this.vistaGestionPadres.mostrar(true);
     }
     
-		verVistaQ19() {
-				this.ocultarVistas()
+    /**
+     * Muestra la vista del Q19.
+     */
+	verVistaQ19() {
+		this.ocultarVistas()
         this.vistaQ19.mostrar(true);
     }
 
@@ -190,17 +213,43 @@ class ControladorSecretaria {
          })
     }
 
-		/**
-			Muestra la vista del Q19.
-			@param mes {Number} Número del mes (1 es enero).
-		**/
-		verQ19(mes){
-			this.modelo.obtenerQ19(mes)
-			.then ( q19 => {
-				this.verVistaQ19()
-				this.vistaQ19.iniciar(q19, mes)
-			} )
-		}
+	/**
+		Muestra la vista del Q19.
+		@param mes {Number} Número del mes (1 es enero).
+	**/
+	verQ19(mes){
+		this.modelo.obtenerQ19(mes)
+		.then ( q19 => {
+			this.verVistaQ19()
+			this.vistaQ19.iniciar(q19, mes)
+		} )
+	}
+	
+	/**
+    * Obtiene la constante de tupperware desde el modelo y la inicializa en la vista.
+    */
+    constanteTupper(){
+        this.modelo.obtenerConstanteTupper()
+        .then ( c => {  
+			this.vistaQ19.inicializarTupper(c)
+		} )
+        .catch(e => {
+            console.error(e);
+        })
+    }
+    
+    /**
+    * Obtiene la constante de menú desde el modelo y la inicializa en la vista.
+    */
+    constanteMenu(){
+        this.modelo.obtenerConstanteMenu()
+        .then ( c => {  
+			this.vistaQ19.inicializarMenu(c)
+		} )
+        .catch(e => {
+            console.error(e);
+        })
+    }
 }
 
 new ControladorSecretaria();

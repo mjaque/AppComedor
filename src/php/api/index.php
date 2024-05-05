@@ -5,7 +5,7 @@
      * También identifica al usuario (autenticación).
      * Es un interfaz RESTful (https://www.rfc-editor.org/rfc/rfc7231)
      */
-
+//die("TRON 42. Estamos KO");
     // Cargamos la configuración
     $config = require_once('config.php');
 
@@ -32,9 +32,9 @@
                 $locale = 'es_ES.UTF-8';
                 setlocale(LC_ALL, $locale);
                 putenv('LC_ALL=' . $locale);
-								$fichero = '../../../sql/appcomedor.sql';
-							if(!file_exists($fichero))
-								die('No existe fichero');
+				$fichero = '../../../sql/appcomedor.sql';
+				if(!file_exists($fichero))
+					die('No existe fichero');
 
                 exec('mysql -u ' . BD::$usuario . ' --password=' . BD::$clave . ' ' . BD::$bd . ' < '.$fichero, $salida);
                 die('Cargada BD Pruebas.<br/>');
@@ -134,7 +134,7 @@
 
             case 'dias':
                 require_once('./controllers/dias.php');
-        		Dias::$hora_limite = $config['hora_limite'];
+                Dias::$hora_limite = $config['hora_limite'];
                 $controlador = new Dias();
                 break;
 
@@ -147,33 +147,40 @@
                 require_once('./controllers/secretaria.php');
                 $controlador = new Secretaria();
                 break;
+                
+            case 'constantes':
+                require_once('./controllers/constantes.php');
+                Constantes::$precioTupper = $config['precio_tupper'];
+                Constantes::$precioMenu = $config['precio_menu'];
+                $controlador = new Constantes();
+                break;
 
             default:
                 header('HTTP/1.1 501 Not Implemented');
                 die();
         }
         if ($controlador) {
-					switch($metodo) {
-							case 'GET':
-									$controlador->get($pathParams, $queryParams, $usuario);
-									die();
+            switch($metodo) {
+                case 'GET':
+                    $controlador->get($pathParams, $queryParams, $usuario);
+                    die();
 
-							case 'POST':
-									$controlador->post($pathParams, $queryParams, $body, $usuario);
-									die();
+                case 'POST':
+                    $controlador->post($pathParams, $queryParams, $body, $usuario);
+                    die();
 
-							case 'DELETE':
-									$controlador->delete($pathParams, $queryParams, $usuario);
-									die();
+                case 'DELETE':
+                    $controlador->delete($pathParams, $queryParams, $usuario);
+                    die();
 
-							case 'PUT':
-									$controlador->put($pathParams, $queryParams, $body, $usuario);
-									die();
+                case 'PUT':
+                    $controlador->put($pathParams, $queryParams, $body, $usuario);
+                    die();
 
-							default:
-									header('HTTP/1.1 501 Not Implemented');
-									die();
-					}
+                default:
+                    header('HTTP/1.1 501 Not Implemented');
+                    die();
+            }
         }
         else {
             header('HTTP/1.1 501 Not Implemented');
@@ -195,7 +202,8 @@
                 break;
         }
 
-        echo $excepcion;
+        if ($config['debug'])
+            echo $excepcion;
         die();
     }
 ?>

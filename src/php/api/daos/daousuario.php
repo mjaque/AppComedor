@@ -728,15 +728,35 @@
          * @return array Devuelve los registros de la remesa. 
          */
         public static function obtenerQ19($mes) {
-            $sql  = 'SELECT Persona.titular, Persona.correo, Persona.iban, Persona.referenciaUnicaMandato, Persona.fechaFirmaMandato, COUNT(Dias.dia) AS dias ';
-						$sql .= 'FROM Persona ';
-						$sql .= 'JOIN Dias ON Dias.idPadre = Persona.id ';
+            $sql  = 'SELECT Persona.titular, Persona.correo, Persona.iban, Persona.referenciaUnicaMandato, Persona.fechaFirmaMandato, COUNT(Dias.dia) AS dias, SUM(Dias.tupper) AS dias_tupper ';
+			$sql .= 'FROM Persona ';
+			$sql .= 'JOIN Dias ON Dias.idPadre = Persona.id ';
             $sql .= 'WHERE MONTH(Dias.dia) = :mes ';
             $sql .= 'GROUP BY Persona.id ';
             $params = array('mes' => $mes);
 
             return BD::seleccionar($sql, $params);
         }
+        
+        // Funciones para la gestión de tuppers
+        public static function obtenerTupper($fecha) {
+            $sql = 'SELECT idPersona, tupper FROM Dias';
+            $sql .= ' WHERE dia=:fecha';
+            $params = array('fecha' => $fecha);
 
+            return BD::seleccionar($sql, $params);
+        }
+
+        public static function insertarTupper($datos) {
+            $sql = 'UPDATE Dias SET tupper = :tupper WHERE idPersona = :idPersona AND dia = :dia';
+
+            $params = array(
+                'idPersona' => $datos->idPersona,
+                'tupper' => $datos->tupper,
+                'dia' => $datos->dia
+            );
+
+            BD::actualizar($sql, $params);
+        }
     }
 ?>

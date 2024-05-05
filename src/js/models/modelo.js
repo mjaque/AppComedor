@@ -147,6 +147,18 @@ export class Modelo {
     }
 
     /**
+     * Obtiene los registros de tupperware para una fecha específica.
+     * @param {Date} fecha La fecha para la cual se desean obtener los registros de tupperware.
+     * @returns {Promise} Una promesa que se resolverá con los registros de tupperware para la fecha especificada.
+     */
+    obtenerTupper(fecha) {
+        const queryParams = new Map();
+        queryParams.set('proceso', 'tupper');
+        queryParams.set('fecha', fecha.getDate() + '-' + (fecha.getMonth() + 1) + '-' + fecha.getFullYear());
+        return Rest.get('secretaria', [], queryParams);
+    }
+    
+    /**
      * Llamada para obtener a los usuarios apuntados al comedor en un mes.
      * @param {Number} mes Nº del mes.
      * @returns {Promise} Devuelve la promesa asociada a la petición.
@@ -179,6 +191,15 @@ export class Modelo {
         return Rest.put('secretaria', ['incidencia'], datos, false);
     }
 
+    /**
+    * Inserta un registro de tupperware en la base de datos.
+    * @param {Object} datos Los datos del registro de tupperware a insertar.
+    * @returns {Promise} Una promesa que se resolverá después de que se haya completado la inserción.
+    */
+    insertarTupper(datos) {
+        return Rest.put('secretaria', ['tupper'], datos, false);
+    }
+    
     obtenerListadoPadres(busqueda){
         const queryParams = new Map();
 
@@ -201,7 +222,7 @@ export class Modelo {
         return Rest.delete('padres', [id]);
     }
     
-		/**
+	/**
      * Llamada para obtener los registros del Q19 de un mes.
      * @param {Number} mes Nº del mes.
      * @returns {Promise} Devuelve la promesa asociada a la petición.
@@ -213,4 +234,24 @@ export class Modelo {
         return Rest.get('secretaria', [], queryParams);
     }
 
+    /**
+    * Obtiene la constante relacionada con los registros de tupperware.
+    * @returns {Promise} Una promesa que se resolverá con la constante relacionada con los registros de tupperware.
+    */
+    obtenerConstanteTupper() {
+        const queryParams = new Map();
+        queryParams.set('proceso', 'tupper');
+        return Rest.get('constantes', [], queryParams);
+    }
+
+    /**
+     * Obtiene la constante relacionada con el menú.
+     * @returns {Promise} Una promesa que se resolverá con la constante relacionada con el menú.
+    */
+    obtenerConstanteMenu() {
+        const queryParams = new Map();
+        queryParams.set('proceso', 'menu');
+        return Rest.get('constantes', [], queryParams);
+    }
+    
 }

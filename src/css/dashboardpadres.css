@@ -215,3 +215,30 @@ div#divErrorBorrado {
         font-size: 0.85em;
     }
 }
+
+/* Estilos comunes para todas las notificaciones */
+#inicioPadres > #divNotificacion > div {
+    padding: 8px 12px;
+    color: white;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute; /* Cambiar de fixed a absolute */
+    width: 220px;
+    z-index: 9999;
+    transition: top 0.3s ease-out;
+    margin-bottom: 20px; /* Ajustar el margen inferior según sea necesario */
+    top: 50%; /* Centrar verticalmente */
+    transform: translateY(-50%); /* Centrar verticalmente */
+    right: 20px; /* Ajustar la distancia desde el borde derecho */
+}
+
+/* Estilos específicos para notificaciones de marcado */
+#inicioPadres > #divNotificacion > div.marcado {
+    background: linear-gradient(to right, #2C95FF, #53D7FF);
+}
+
+/* Estilos específicos para notificaciones de desmarcado */
+#inicioPadres > #divNotificacion > div.desmarcado {
+    background: linear-gradient(to right, #FFC3A0, #FF6F91);
+}

@@ -36,6 +36,11 @@ export class VistaInicioPadres extends Vista {
         this.thead = this.div.getElementsByTagName('thead')[0];
         this.tbody = this.div.getElementsByTagName('tbody')[0];
         this.pConfirmacion = document.getElementById('pConfirmacion')
+        
+        // Constantes para el funcionamiento de las notificaciones
+        this.DURACION_NOTIFICACION = 3000; // Duración en milisegundos
+        this.VERTICAL_POSITION = 80;
+        this.NOTIFICACIONES_GENERADAS = 0;
     }
 
     /**
@@ -455,6 +460,11 @@ export class VistaInicioPadres extends Vista {
         else {
             this.controlador.desmarcarDiaComedor(datos, this.pConfirmacion);
         }
+        
+        // Mostrar notificación
+        const estado = marcado ? 'marcada' : 'desmarcada';
+        const checkboxId = 'fecha-' + idHijo + '-' + fechaValida;
+        this.mostrarNotificacion(estado, checkboxId);
     }
 
     /**
@@ -498,6 +508,77 @@ export class VistaInicioPadres extends Vista {
         this.refrescarCalendario();
     }
 
+ /**
+     * Muestra una notificación visual según el estado y el ID de la casilla.
+     * @param {String} estado Estado de la casilla ('marcada' o 'desmarcada').
+     * @param {String} checkboxId ID de la casilla de verificación.
+     */
+    mostrarNotificacion(estado, checkboxId) {
+        // Incrementa el contador de notificaciones
+    this.NOTIFICACIONES_GENERADAS++;
+
+    // Si se han generado 5 notificaciones, reinicia la posición vertical y el contador
+    if (this.NOTIFICACIONES_GENERADAS === 7) {
+        this.VERTICAL_POSITION=80;
+        this.NOTIFICACIONES_GENERADAS=0;
+    }
+        // Obtener el elemento divnotificacion
+        let divNotificacion = document.getElementById('divNotificacion');
+
+        // Crear un elemento de notificación
+        let notificacion = document.createElement('div');
+
+        // Establecer el texto de acuerdo al estado de la casilla
+        if (estado === 'marcada') {
+            // Agregar la clase 'marcado'
+            notificacion.classList.add('marcado');
+            if (checkboxId.startsWith('fecha')) {
+                // Si es una fecha, obtener el día del ID del checkbox
+                let dia = checkboxId.slice(-2); // Extraer los dos últimos caracteres correspondientes al día
+                notificacion.textContent = `Ha marcado día ${dia}.`;
+            } else if (checkboxId.startsWith('mes')) {
+                // Si es un mes, simplemente indicar que se ha marcado un mes
+                notificacion.textContent = `Ha marcado un mes.`;
+            } else {
+                // Si no es ni una fecha ni un mes, interpretarlo como una semana marcada
+                notificacion.textContent = `Ha marcado una semana.`;
+            }
+        } else if (estado === 'desmarcada') {
+            // Agregar la clase 'desmarcado'
+            notificacion.classList.add('desmarcado');
+            if (checkboxId.startsWith('fecha')) {
+                // Si es una fecha, obtener el día del ID del checkbox
+                let dia = checkboxId.slice(-2); // Extraer los dos caracteres correspondientes al día
+                notificacion.textContent = `Ha desmarcado día ${dia}.`;
+            } else if (checkboxId.startsWith('mes')) {
+                // Si es un mes, simplemente indicar que se ha desmarcado un mes
+                notificacion.textContent = `Ha desmarcado un mes.`;
+            } else {
+                // Si no es ni una fecha ni un mes, interpretarlo como una semana marcada
+                notificacion.textContent = `Ha desmarcado una semana.`;
+            }
+        } else {
+            return;
+        }
+
+        // Establecer la posición vertical de la notificación
+        notificacion.style.top = this.VERTICAL_POSITION + 'px';
+        // Incrementar la posición vertical para la próxima notificación
+        this.VERTICAL_POSITION += notificacion.offsetHeight + 50; // Agregar margen inferior
+
+        // Agregar la notificación al divnotificacion
+        divNotificacion.appendChild(notificacion);
+
+        // Quitar la notificación después de unos segundos
+        setTimeout(() => {
+            divNotificacion.removeChild(notificacion);
+            // Reiniciar la posición vertical si no hay más notificaciones presentes
+            if (!divNotificacion.firstChild) {
+                this.VERTICAL_POSITION;
+            }
+        }, this.DURACION_NOTIFICACION);
+    }
+    
     /**
      * Refrescar calendario.
      */

@@ -26,10 +26,27 @@ export class VistaGestionDiaria extends Vista {
         this.btnDiaAnterior.addEventListener('click', this.diaAnterior.bind(this));
         this.btnDiaSiguiente.addEventListener('click', this.diaSiguiente.bind(this));
         this.div.querySelectorAll("div.container > button:nth-of-type(3)")[0].addEventListener("click", () => {
-            window.print()
+            this.imprimir()
         });
     }
+    /**
+     * Imprime la tabla de gestion diaria con la hora.
+     * 
+     */
+    imprimir() {
+        var now = new Date();
+        var hora = now.getHours();
+        var minutos = now.getMinutes();
+        var segundos = now.getSeconds();
 
+        if (hora < 10) {hora = "0" + hora;}
+        if (minutos < 10) {minutos = "0" + minutos;}
+        if (segundos < 10) {segundos = "0" + segundos;}
+        var horaActual = hora + ":" + minutos + ":" + segundos;
+        document.getElementById("horaGestionDiaria").innerText = "Hora de impresión: " + horaActual;
+        window.print()
+        document.getElementById("horaGestionDiaria").innerText = "";
+    }
     /**
      * Refrescar/iniciar listado.
      */

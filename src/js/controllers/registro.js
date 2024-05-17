@@ -130,14 +130,29 @@ class Registro {
             titular: this.inputs[8].value
         };
 
-        Rest.post('persona', [], usuario, true)
-         .then(id => {
-             this.insertarPadre(id, usuario);
-         })
-         .catch(e => {
-             this.divCargando.style.display = 'none';
-             this.error(e);
-         })
+        const correoFundacion = usuario.correo.includes('@fundacionloyola.es') || usuario.correo.includes('@alumnado.fundacionloyola.net');
+
+        if (correoFundacion) {
+            Rest.post('persona', [], usuario, true)
+             .then(() => {
+                this.divCargando.style.display = 'none';
+                this.exito(usuario);
+                
+             })
+             .catch(e => {
+                 this.divCargando.style.display = 'none';
+                 this.error(e);
+             });
+        } else {
+            Rest.post('persona', [], usuario, true)
+            .then(id => {
+                this.insertarPadre(id, usuario);
+            })
+            .catch(e => {
+                this.divCargando.style.display = 'none';
+                this.error(e);
+            });
+        }
     }
 
     /**

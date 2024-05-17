@@ -323,14 +323,14 @@
          * @param object $datos Datos de la Persona.
          * @return int ID de la fila insertada.
          */
-        public static function altaPersona($datos) {
+        public static function altaPersona($datos)
+        {
             $sql = 'INSERT INTO Persona(nombre, apellidos, correo, clave, telefono, dni, iban, titular)';
             $sql .= ' VALUES(:nombre, :apellidos, :correo, :clave, :telefono, :dni, :iban, :titular)';
 
             if ($datos->clave != null) {
                 $clave = password_hash($datos->clave, PASSWORD_DEFAULT, ['cost' => 15]);
-            }
-            else {
+            } else {
                 $clave = NULL;
             }
 
@@ -344,8 +344,50 @@
                 'iban' => $datos->iban,
                 'titular' => $datos->titular
             );
+        
+            if (strpos($datos->correo, '@fundacionloyola.es') !== false || strpos($datos->correo, '@alumnado.fundacionloyola.net') !== false) {
+        
+            return self::insertarPersonal($sql,$params);
+        
+            }else{
+                return BD::insertar($sql, $params);
+            } 
+        }
+        
+        public static function insertarPersonal($sql,$params)
+        {
+            if (!BD::iniciarTransaccion())
+                throw new Exception('No es posible iniciar la transacción.');
+        
+            $id = BD::insertar($sql, $params);
+        
+            self::altaPadre($id);
+        
+            // Insertar en Hijo
+            $sql = 'INSERT INTO Hijo(id, idPadreAlta, idCurso, pin)';
+            $sql .= ' VALUES(:id, :idPadreAlta, :idCurso, :pin)';
+            $params = array(
+                'id' => $id,
+                'idPadreAlta' =>  $id,
+                'idCurso' => 1,// NO PUEDE SER NULO Y NO SE QUE PONER
+                'pin' => self::generarUID(4)
+            );
 
-            return BD::insertar($sql, $params);
+           BD::insertar($sql, $params);
+
+            // Insertar en Hijo_Padre
+            $sql = 'INSERT INTO Hijo_Padre(idPadre, idHijo)';
+            $sql .= ' VALUES(:idPadre, :idHijo)';
+            $params = array(
+                'idPadre' => $id,
+                'idHijo' => $id
+            );
+
+            BD::insertar($sql, $params);
+            if (!BD::commit())
+                throw new Exception('No se pudo confirmar la transacción.');
+        
+            return $id;
         }
 
         /**

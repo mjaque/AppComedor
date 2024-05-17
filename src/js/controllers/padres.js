@@ -3,6 +3,7 @@ import { VistaInicioPadres } from "../views/padres/vistainicio.js";
 import { VistaMenuPadres } from "../views/padres/vistamenu.js";
 import { VistaGestionHijos } from "../views/padres/vistagestionhijos.js";
 import { VistaModificarPadres } from "../views/padres/vistamodificar.js";
+import { VistaCalendario } from "../views/padres/vistacalendario.js";
 import { Rest } from "../services/rest.js";
 
 /**
@@ -37,10 +38,12 @@ class ControladorPadres {
         this.vistaInicio = new VistaInicioPadres(this, document.getElementById('inicioPadres'));
         this.vistaGestionHijos = new VistaGestionHijos(this, document.getElementById('gestionHijosPadres'));
         this.vistaModificacion = new VistaModificarPadres(this, document.getElementById('modificacionPadres'));
+        this.vistaCalendario = new VistaCalendario(this, document.getElementById('calendarioGestion'));
         
         this.vistaModificacion.actualizarCampos(this.#usuario);
         this.vistaGestionHijos.actualizar(this.#usuario);
         this.vistaInicio.obtenerPadre(this.#usuario);
+        //this.vistaCalendario.actualizar(this.#usuario);
         this.verVistaInicio();
     }
 
@@ -56,7 +59,7 @@ class ControladorPadres {
              console.error(e);
          })
     }
-
+    
     /**
      * Devuelve array de cursos a vista de gestión de hijos.
      */
@@ -184,12 +187,8 @@ class ControladorPadres {
      * @param {Object} datos Datos del día a marcar.
        @param {HTMLElement} pConfirmacion párrafo para el texto de confirmación.
      */
-    marcarDiaComedor(datos, pConfirmacion) {
+    marcarDiaComedor(datos) {
         this.modelo.marcarDiaComedor(datos)
-         .then( resp => {pConfirmacion.textContent = 'Marcado correctamente el día ' + datos.dia})
-         .catch(e => {
-             console.error(e)
-         })
     }
 
     /**
@@ -205,17 +204,13 @@ class ControladorPadres {
              console.error(e);
          })
     }
-
+    
     /**
      * Desmarcar día del comedor.
      * @param {Object} datos Datos del día.
      */
-    desmarcarDiaComedor(datos, pConfirmacion) {
+    desmarcarDiaComedor(datos) {
         this.modelo.desmarcarDiaComedor(datos)
-         .then( resp => {pConfirmacion.textContent = 'Desmarcado correctamente el día ' + datos.dia})         	
-         .catch(e => {
-             console.error(e)
-         })
     }
 
     /**
@@ -266,6 +261,21 @@ class ControladorPadres {
         this.modelo.dameHijos(id)
          .then(hijos => {
              this.vistaGestionHijos.cargarListado(hijos);
+         })
+         .catch(e => {
+             console.error(e)
+         })
+    }
+    
+    /**
+     * Devuelve los hijos de un padre a la vista de gestión de hijos.
+     * @param {Number} id ID del padre. 
+     */
+    dameHijosGestion(id) {
+        this.modelo.dameHijos(id)
+         .then(hijos => {
+             this.vistaCalendario.cargarHijos(hijos);
+             this.vistaCalendario.renderCalendars(hijos)
          })
          .catch(e => {
              console.error(e)

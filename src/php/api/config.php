@@ -17,6 +17,7 @@
         'usuario_bd' => 'appcomedor',
         'clave_bd' => 'appcomedor',
 
+				'correo_secretaria' => ['email1@dominio.com'],
 				// Hora límite para modificaciones
         'hora_limite' => 14
     );

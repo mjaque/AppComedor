@@ -1,0 +1,28 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+}
+
+h2{
+    margin-top: 20px;
+}
+.day {
+    border: 1px solid #dee2e6;
+    padding: 0.75rem;
+    text-align: center;
+}
+
+.weekend {
+    background-color: #dddddd; /* Color de fondo gris para fines de semana */
+}
+
+.blue-day {
+    background-color: #00adc4;
+    color: white;
+}

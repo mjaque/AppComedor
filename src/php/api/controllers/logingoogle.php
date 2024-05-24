@@ -17,7 +17,7 @@
         public static $clave = null;
         public static $algoritmo_encriptacion = null;
         public static $iv = 'Sd5LzPt2fxW+rQfF';
-				private static $secretaria = ['mjaque@fundacionloyola.es'];
+		public static $secretaria = null;
 
         //Id de cliente de Google.
         private static $ID_CLIENTE = '829640902680-48t2uq3us7qit3ehbusp2t6fldfeh6r6.apps.googleusercontent.com';
@@ -50,21 +50,11 @@
 
             // El usuario ha sido identificado por Google
             $usuario = DAOUsuario::autenticarEmail($payload['email']);
-            sleep(1);
 
             if (!$usuario) {
-                $id = DAOUsuario::altaUsuarioGoogle($payload);
-                sleep(1);
-
-                if (!$id) {
-                    header('HTTP/1.1 400 Bad Request');
-                    die();
-                }
-
-                DAOUsuario::altaUsuario($id);
-                sleep(1);
-
-                $usuario = new Usuario();
+                sleep(2);
+                header('HTTP/1.1 401 Unauthorized');
+                die();
             }
 
             // Verificar el tipo de usuario que hace login
@@ -126,4 +116,4 @@
             }
         }
     }
-?>
+    

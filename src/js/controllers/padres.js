@@ -3,6 +3,7 @@ import { VistaInicioPadres } from "../views/padres/vistainicio.js";
 import { VistaMenuPadres } from "../views/padres/vistamenu.js";
 import { VistaGestionHijos } from "../views/padres/vistagestionhijos.js";
 import { VistaModificarPadres } from "../views/padres/vistamodificar.js";
+import { VistaCalendario } from "../views/padres/vistacalendario.js";
 import { Rest } from "../services/rest.js";
 
 /**
@@ -26,10 +27,6 @@ class ControladorPadres {
         if (!this.#usuario)
             window.location.href = 'login.html';
 
-        // Comprobar rol de usuario padre
-        if (this.#usuario.rol != 'P')
-            window.location.href = 'login.html';
-
         Rest.setAutorizacion(this.#usuario.autorizacion);
 
         this.modelo = new Modelo();
@@ -37,10 +34,12 @@ class ControladorPadres {
         this.vistaInicio = new VistaInicioPadres(this, document.getElementById('inicioPadres'));
         this.vistaGestionHijos = new VistaGestionHijos(this, document.getElementById('gestionHijosPadres'));
         this.vistaModificacion = new VistaModificarPadres(this, document.getElementById('modificacionPadres'));
+        this.vistaCalendario = new VistaCalendario(this, document.getElementById('calendarioGestion'));
         
         this.vistaModificacion.actualizarCampos(this.#usuario);
         this.vistaGestionHijos.actualizar(this.#usuario);
         this.vistaInicio.obtenerPadre(this.#usuario);
+        
         this.verVistaInicio();
     }
 
@@ -56,7 +55,7 @@ class ControladorPadres {
              console.error(e);
          })
     }
-
+    
     /**
      * Devuelve array de cursos a vista de gestión de hijos.
      */
@@ -69,6 +68,21 @@ class ControladorPadres {
              console.error(e);
          })
     }
+    
+    /**
+     * Devuelve array de cursos a vista de gestión de hijos.
+     * Modificar la función obtenerDatosCalendario para pasar el año y el mes actual
+     */
+    obtenerDatosCalendario(anio, mes) {
+        this.modelo.obtenerDiasCalendario(this.#usuario.id, anio, mes)
+        .then(cursos => {
+            console.log(cursos)
+            this.vistaCalendario.loadCalendarData(cursos);
+        })
+        .catch(e => {
+            console.error(e);
+        });
+    }
 
     /**
      * Cambia a la vista de inicio.
@@ -77,6 +91,7 @@ class ControladorPadres {
         this.vistaInicio.mostrar(true);
         this.vistaGestionHijos.mostrar(false);
         this.vistaModificacion.mostrar(false);
+        this.vistaCalendario.mostrar(false)
     }
 
     /**
@@ -84,6 +99,7 @@ class ControladorPadres {
      */
     verVistaGestionHijos() {
         this.vistaInicio.mostrar(false);
+        this.vistaCalendario.mostrar(false)
         this.vistaGestionHijos.mostrar(true);
         this.vistaModificacion.mostrar(false);
     }
@@ -93,10 +109,21 @@ class ControladorPadres {
      */
     verVistaModificacion() {
         this.vistaInicio.mostrar(false);
+        this.vistaCalendario.mostrar(false)
         this.vistaGestionHijos.mostrar(false);
         this.vistaModificacion.mostrar(true);
     }
-
+    
+    /**
+     * Cambia a la vista de gestión mensual.
+     */
+    verVistaCalendario() {
+        this.vistaInicio.mostrar(false);
+        this.vistaGestionHijos.mostrar(false);
+        this.vistaModificacion.mostrar(false);   
+        this.vistaCalendario.mostrar(true)
+    }
+    
     /**
      * Registra un hijo existente a un padre mediante un PIN.
      * @param {Object} datos Datos.
@@ -184,12 +211,8 @@ class ControladorPadres {
      * @param {Object} datos Datos del día a marcar.
        @param {HTMLElement} pConfirmacion párrafo para el texto de confirmación.
      */
-    marcarDiaComedor(datos, pConfirmacion) {
+    marcarDiaComedor(datos) {
         this.modelo.marcarDiaComedor(datos)
-         .then( resp => {pConfirmacion.textContent = 'Marcado correctamente el día ' + datos.dia})
-         .catch(e => {
-             console.error(e)
-         })
     }
 
     /**
@@ -205,17 +228,13 @@ class ControladorPadres {
              console.error(e);
          })
     }
-
+    
     /**
      * Desmarcar día del comedor.
      * @param {Object} datos Datos del día.
      */
-    desmarcarDiaComedor(datos, pConfirmacion) {
+    desmarcarDiaComedor(datos) {
         this.modelo.desmarcarDiaComedor(datos)
-         .then( resp => {pConfirmacion.textContent = 'Desmarcado correctamente el día ' + datos.dia})         	
-         .catch(e => {
-             console.error(e)
-         })
     }
 
     /**
@@ -255,6 +274,7 @@ class ControladorPadres {
          })
          .catch(e => {
              console.error(e)
+             this.vistaCalendario.calendarContainer.innerHTML = '<p>Error al cargar los datos.</p>';
          })
     }
 

@@ -99,6 +99,7 @@
 
             case 'login_google':
                 require_once('./controllers/logingoogle.php');
+                LoginGoogle::$secretaria = $config["correo_secretaria"];
                 $controlador = new LoginGoogle();
                 break;
 
@@ -155,6 +156,11 @@
                 $controlador = new Constantes();
                 break;
 
+            case 'calendario':
+                require_once('./controllers/calendario.php');     
+                $controlador = new Calendario();
+                break;
+                
             default:
                 header('HTTP/1.1 501 Not Implemented');
                 die();

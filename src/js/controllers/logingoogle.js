@@ -69,8 +69,8 @@ class LoginGoogle {
             window.location.href = 'index_evg.html';        
         }
         // PAS o profesores
-        else if (usuario.rol == 'G') {
-            window.location.href = 'index_personal.html';   
+        else if (usuario.rol == 'G' || usuario.rol == 'P' ) {
+            window.location.href = 'index.html';   
         }
     }
 
@@ -88,7 +88,9 @@ class LoginGoogle {
             else {
                 this.divError.innerHTML = '<p>' + e + '</p>';
             }
-
+            if (e == 'Error: 401 - Unauthorized') {
+                this.divError.innerHTML = '<p>No existe un usuario. <a href="registro.html">Regístrate aquí</a>.</p>';
+            }
             this.divError.style.display = 'block';
             window.scrollTo(0, document.body.scrollHeight);
         }

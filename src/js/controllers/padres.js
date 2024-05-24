@@ -39,7 +39,7 @@ class ControladorPadres {
         this.vistaModificacion.actualizarCampos(this.#usuario);
         this.vistaGestionHijos.actualizar(this.#usuario);
         this.vistaInicio.obtenerPadre(this.#usuario);
-        
+
         this.verVistaInicio();
     }
 
@@ -286,6 +286,21 @@ class ControladorPadres {
         this.modelo.dameHijos(id)
          .then(hijos => {
              this.vistaGestionHijos.cargarListado(hijos);
+         })
+         .catch(e => {
+             console.error(e)
+         })
+    }
+    
+    /**
+     * Devuelve los hijos de un padre a la vista de gestión de hijos.
+     * @param {Number} id ID del padre. 
+     */
+    dameHijosGestion(id) {
+        this.modelo.dameHijos(id)
+         .then(hijos => {
+             this.vistaCalendario.cargarHijos(hijos);
+             this.vistaCalendario.renderCalendars(hijos)
          })
          .catch(e => {
              console.error(e)

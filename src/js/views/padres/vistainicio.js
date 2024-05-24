@@ -35,7 +35,6 @@ export class VistaInicioPadres extends Vista {
         this.tabla = this.div.querySelector('#menuHijos');
         this.thead = this.div.getElementsByTagName('thead')[0];
         this.tbody = this.div.getElementsByTagName('tbody')[0];
-        this.pConfirmacion = document.getElementById('pConfirmacion')
         
         // Constantes para el funcionamiento de las notificaciones
         this.DURACION_NOTIFICACION = 3000; // Duración en milisegundos
@@ -455,10 +454,10 @@ export class VistaInicioPadres extends Vista {
         };
 
         if (marcado) {
-            this.controlador.marcarDiaComedor(datos, this.pConfirmacion);
+            this.controlador.marcarDiaComedor(datos);
         }
         else {
-            this.controlador.desmarcarDiaComedor(datos, this.pConfirmacion);
+            this.controlador.desmarcarDiaComedor(datos);
         }
         
         // Mostrar notificación

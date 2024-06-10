@@ -11,12 +11,14 @@ export class VistaMenuSecretaria {
         this.liGestionMensual = this.nav.getElementsByTagName('li')[2];
         this.liGestionPadres = this.nav.getElementsByTagName('li')[3];
         this.liCerrarSesion = this.nav.getElementsByTagName('li')[4];
+        this.acerca = this.nav.getElementsByTagName('li')[5];
         
         this.liHamburger.onclick = this.toggleMenu.bind(this);
         this.liGestionDiaria.onclick = this.gestionDiaria.bind(this);
         this.liGestionMensual.onclick = this.gestionMensual.bind(this);
         this.liGestionPadres.onclick = this.gestionPadres.bind(this);
         this.liCerrarSesion.onclick = this.cerrarSesion.bind(this);
+        this.acerca.onclick = this.acercade.bind(this);
     }
 
     /**
@@ -57,6 +59,17 @@ export class VistaMenuSecretaria {
         this.liGestionDiaria.classList.remove('active');
         this.liGestionMensual.classList.remove('active');
         this.liGestionPadres.classList.add('active');
+    }
+    
+    /**
+     * Atención al evento acerca de.
+     */
+    acercade() {
+        this.controlador.acercade();
+        this.liGestionDiaria.classList.remove('active');
+        this.liGestionMensual.classList.remove('active');
+        this.liGestionPadres.classList.remove('active');
+        this.acerca.classList.add('active');
     }
 
     /**

@@ -16,6 +16,7 @@ class LoginGoogle {
         this.divCargando = document.getElementById('loadingImg');
         this.divError = document.getElementById('divError');
 
+				/* eslint-disable no-undef */
         google.accounts.id.initialize({
             client_id: '829640902680-48t2uq3us7qit3ehbusp2t6fldfeh6r6.apps.googleusercontent.com',
             callback: this.login.bind(this)

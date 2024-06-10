@@ -132,7 +132,7 @@ export class Rest {
 	  // TODO: Procesar el mapa de queryParams para generar el query string ?nombre1=valor1&nombre2=valor2...
 	  if (queryParams) {
 		url += '?'
-		queryParams.forEach((valor, clave, mapa) => {
+		queryParams.forEach((valor, clave) => {
 		  url += `${clave}=${valor}&`
 		})
 		url = url.substring(0, url.length - 1)

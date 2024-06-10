@@ -4,6 +4,7 @@ import { VistaGestionDiaria } from "../views/secretaria/vistagestiondiaria.js";
 import { VistaGestionMensual } from "../views/secretaria/vistagestionmensual.js";
 import { VistaGestionPadres } from "../views/secretaria/vistagestionpadres.js";
 import { VistaQ19 } from "../views/secretaria/vistaq19.js";
+import { Vista } from "../views/vista.js";
 import { Rest } from "../services/rest.js";
 
 /**
@@ -39,6 +40,7 @@ class ControladorSecretaria {
         this.vistaGestionMensual = new VistaGestionMensual(this, document.getElementById('gestionMensual'));
         this.vistaGestionPadres = new VistaGestionPadres(this, document.getElementById('gestionPadres'));
         this.vistaQ19 = new VistaQ19(this, document.getElementById('divQ19'));
+        this.acerca = new Vista(this, document.getElementById('acercade'));
    
         this.verVistaGestionDiaria();
     }
@@ -154,6 +156,7 @@ class ControladorSecretaria {
         this.vistaGestionDiaria.mostrar(false);
         this.vistaGestionMensual.mostrar(false);
         this.vistaGestionPadres.mostrar(false);
+        this.acerca.mostrar(false);
         this.vistaQ19.mostrar(false);
 		}
 
@@ -187,6 +190,11 @@ class ControladorSecretaria {
 	verVistaQ19() {
 		this.ocultarVistas()
         this.vistaQ19.mostrar(true);
+    }
+    
+     acercade() {
+        this.ocultarVistas()
+        this.acerca.mostrar(true)
     }
 
     /**

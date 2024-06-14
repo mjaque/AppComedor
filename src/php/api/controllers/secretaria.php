@@ -30,7 +30,12 @@
                         DAOUsuario::insertarIncidencia($datos);
                         header('HTTP/1.1 200 OK');
                         break;
-
+                        
+                    case 'tupper':
+                        DAOUsuario::insertarTupper($datos);
+                        header('HTTP/1.1 200 OK');
+                        break;
+                    
                     default:
                         header('HTTP/1.1 501 Not Implemented');
                         break;
@@ -76,6 +81,10 @@
 
                     case 'padres':
                         $this->obtenerListadoPadres($queryParams['busqueda']);
+                        break;
+                        
+                    case 'tupper':
+                        $this->obtenerTupper($queryParams['fecha']);
                         break;
 
                     case 'q19':
@@ -176,5 +185,16 @@
             die();
         }
 
+        function obtenerTupper($date) {
+            $fecha = new DateTime($date);
+            $fecha = $fecha->format('Y-m-d');
+            
+            $tupper = DAOUsuario::obtenerTupper($fecha);
+
+            header('Content-type: application/json; charset=utf-8');
+            header('HTTP/1.1 200 OK');
+            echo json_encode($tupper);
+            die();
+        }
     }
 ?>

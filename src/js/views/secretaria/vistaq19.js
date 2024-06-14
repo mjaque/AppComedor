@@ -6,8 +6,9 @@ import { Datatable } from '../components/datatable.js'
  */
 export class VistaQ19 extends Vista {
 	#mes = null
-	#PRECIO_MENU = [7.5, 6.5]
+	#PRECIO_MENU = null
 	#MESES = ['', 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
+	#PRECIO_TUPPER = null
 
     /**
 	 *	Constructor de la clase.
@@ -16,7 +17,9 @@ export class VistaQ19 extends Vista {
 	 */
     constructor(controlador, div) {
         super(controlador, div)
-    
+    		this.controlador.constanteTupper();
+				this.controlador.constanteMenu();
+				
 				// Cogemos referencias a los elementos del interfaz
 				this.btnNuevoRegistro = this.div.querySelectorAll('img')[0]
 				this.btnDescargar = this.div.querySelectorAll('img')[1]
@@ -56,6 +59,15 @@ export class VistaQ19 extends Vista {
 					this.tbody.append(this.crearFila(recibo, indice))
 				})
     }
+
+    inicializarTupper(c) {
+			this.#PRECIO_TUPPER = c;
+		}
+
+		inicializarMenu(c) {
+			this.#PRECIO_MENU = c;
+		}
+
 
 	/**
 		Crea una fila de la tabla para un recibo.
@@ -119,7 +131,7 @@ export class VistaQ19 extends Vista {
 		let precio = this.#PRECIO_MENU[0]
 		if (/@fundacionloyola.es$/.test(recibo.correo))
 			precio = this.#PRECIO_MENU[1]
-		recibo.importe = recibo.dias * precio
+		recibo.importe = recibo.dias * precio + this.#PRECIO_TUPPER * recibo.dias_tupper
 		td.setAttribute('data-campo', 'importe')
 		this.datatable.activarCelda(td, null, this.actualizarCampo.bind(this, td), null)
 
@@ -192,3 +204,4 @@ export class VistaQ19 extends Vista {
 	}
 
 }
+

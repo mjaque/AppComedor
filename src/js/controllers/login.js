@@ -23,19 +23,47 @@ class Login {
         this.divError = document.getElementById('divError');
 
         this.btnAceptar.addEventListener('click', this.validarFormulario.bind(this));
+        this.email.addEventListener('change', this.comprobarCorreo.bind(this));
         this.verClave.addEventListener('click', this.mostrarClave.bind(this))
     }
     
     /**
-    	Cambia la visibilidad del campo de clave
-    **/
-    mostrarClave(){
-    	if (this.clave.type === 'password')
-    		this.clave.type = 'text'
-    	else
-    		this.clave.type = 'password'
+     * Verifica el dominio del correo y muestra un mensaje si coincide con criterios específicos.
+     */
+    comprobarCorreo() {
+        const correo = this.email.value.trim().toLowerCase();
+    
+        if (correo.endsWith('@fundacionloyola.es')) {
+            this.btnAceptar.disabled = true;
+            this.mostrarMensaje('El personal de la Escuela Virgen de Guadalupe debe acceder con su correo corporativo a través del login de Google', 'login_google.html');
+        } else if (correo.endsWith('@alumnado.fundacionloyola.net')) {
+            this.btnAceptar.disabled = true;
+            this.mostrarMensaje('Los alumnos de la Escuela Virgen de Guadalupe deben acceder con su correo corporativo a través del login de Google', 'login_google.html');
+        }
     }
-
+    
+    /**
+        Cambia la visibilidad del campo de clave y alterna la imagen del ojo
+    **/
+    mostrarClave() {
+        if (this.clave.type === 'password') {
+            this.clave.type = 'text';
+            this.verClave.src = 'img/icons/eye-closed.svg'; 
+        } else {
+            this.clave.type = 'password';
+            this.verClave.src = 'img/icons/eye-open.svg'; 
+        }
+    }
+    /**
+     * Muestra un mensaje y un enlace en el div de error.
+     * @param {string} mensaje - El mensaje a mostrar.
+     * @param {string} enlace - El enlace a incluir en el mensaje.
+     */
+    mostrarMensaje(mensaje, enlace) {
+        this.divError.innerHTML = `<p>${mensaje}</p><a href="${enlace}">Haz clic aquí</a>`;
+        this.divError.style.display = 'block';
+    }
+    
     /**
      * Comprobar que el campo de correo y contraseña sean válidos.
      */
